@@ -171,7 +171,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      519 字
+      514 字
     </span>
   
 
@@ -214,7 +214,7 @@
             <h1 style="display: none">openfalcon报警策略中diff和pdiff对比</h1>
             
             <div class="markdown-body" id="post-body">
-              <p>falcon的告警策略中，为了满足对突增、突降流量的告警，提供了diff和pdiff的表达式，使用规则为：</p>
+              <p>falcon的告警策略中，为了满足对突增、突降流量的告警，提供了diff和pdiff的表达式</p>
 <pre><code class="hljs"><span class="hljs-attribute">diff(#3)</span>: 拿最新push上来的点（被减数），与历史最新的3个点（3个减数）相减，得到3个差，只要有一个差满足阈值条件则报警
 
 <span class="hljs-attribute">pdiff(#3)</span>: 拿最新push上来的点，与历史最新的3个点相减，得到3个差，再将3个差值分别除以减数，得到3个商值，只要有一个商值满足阈值则报警
