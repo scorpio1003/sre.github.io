@@ -171,7 +171,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      152 字
+      153 字
     </span>
   
 
@@ -214,9 +214,15 @@
             <h1 style="display: none">kafka运维常用命令</h1>
             
             <div class="markdown-body" id="post-body">
-              <p>  查看所有topics<br>bin/kafka-topics.sh –zookeeper  localhost:2181 –list</p>
-<p>查看消费组<br>bin/kafka-consumer-groups.sh –bootstrap-server localhost:9092 –list</p>
-<pre><code class="hljs brainfuck"><span class="hljs-comment">创建topic</span>
+              <pre><code class="hljs brainfuck"><span class="hljs-comment">查看所有topics</span>
+<span class="hljs-comment">bin/kafka</span><span class="hljs-literal">-</span><span class="hljs-comment">topics</span><span class="hljs-string">.</span><span class="hljs-comment">sh</span> --<span class="hljs-comment">zookeeper</span>  <span class="hljs-comment">localhost:2181</span> --<span class="hljs-comment">list</span>
+<span class="hljs-comment"></span>
+<span class="hljs-comment"></span>
+<span class="hljs-comment">查看消费组</span>
+<span class="hljs-comment">bin/kafka</span><span class="hljs-literal">-</span><span class="hljs-comment">consumer</span><span class="hljs-literal">-</span><span class="hljs-comment">groups</span><span class="hljs-string">.</span><span class="hljs-comment">sh</span> --<span class="hljs-comment">bootstrap</span><span class="hljs-literal">-</span><span class="hljs-comment">server</span> <span class="hljs-comment">localhost:9092</span> --<span class="hljs-comment">list</span>
+<span class="hljs-comment"></span>
+<span class="hljs-comment"></span>
+<span class="hljs-comment">创建topic</span>
 <span class="hljs-comment">bin/kafka</span><span class="hljs-literal">-</span><span class="hljs-comment">topics</span><span class="hljs-string">.</span><span class="hljs-comment">sh</span> --<span class="hljs-comment">create</span> --<span class="hljs-comment">zookeeper</span> <span class="hljs-comment">localhost:2181</span> --<span class="hljs-comment">replication</span><span class="hljs-literal">-</span><span class="hljs-comment">factor</span> <span class="hljs-comment">3</span> --<span class="hljs-comment">partitions</span> <span class="hljs-comment">6</span> --<span class="hljs-comment">topic</span> <span class="hljs-comment">test</span>
 <span class="hljs-comment"></span>
 <span class="hljs-comment"></span>
