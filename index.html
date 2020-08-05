@@ -176,6 +176,44 @@
     
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
+        <a href="/2020/08/05/oepnfalcon/">openfalcon报警策略中diff和pdiff对比</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/08/05/oepnfalcon/">
+          
+          
+            
+          
+          falcon的告警策略中，为了满足对突增、突降流量的告警，提供了diff和pdiff的表达式，使用规则为：
+diff(#3): 拿最新push上来的点（被减数），与历史最新的3个点（3个减数）相减，得到3个差，只要有一个差满足阈值条件则报警
+
+pdiff(#3): 拿最新push上来的点，与历史最新的3个点相减，得到3个差，再将3个差值分别除以减数，得到3个商值，只要有一个商值满足阈值则报警
+
+设
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-08-05 16:43" pubdate>
+              2020-08-05
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
         <a href="/2020/08/05/tcpdump/">tcpdump抓包</a>
       </h1>
 
