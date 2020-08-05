@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>openfalcon报警触发函数 - Hexo</title>
+  <title>io测试工具fio使用 - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -160,7 +160,7 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-08-05 16:50" pubdate>
+    <time datetime="2020-08-05 17:14" pubdate>
       August 5, 2020 pm
     </time>
   </div>
@@ -171,7 +171,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      234 字
+      543 字
     </span>
   
 
@@ -181,7 +181,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      2
+      6
        分钟
     </span>
   
@@ -211,35 +211,62 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">openfalcon报警触发函数</h1>
+            <h1 style="display: none">io测试工具fio使用</h1>
             
             <div class="markdown-body" id="post-body">
-              <pre><code class="hljs angelscript">all(#<span class="hljs-number">3</span>): 最新的<span class="hljs-number">3</span>个点都满足阈值条件则报警
-max(#<span class="hljs-number">3</span>): 对于最新的<span class="hljs-number">3</span>个点，其最大值满足阈值条件则报警
-min(#<span class="hljs-number">3</span>): 对于最新的<span class="hljs-number">3</span>个点，其最小值满足阈值条件则报警
-sum(#<span class="hljs-number">3</span>): 对于最新的<span class="hljs-number">3</span>个点，其和满足阈值条件则报警
-avg(#<span class="hljs-number">3</span>): 对于最新的<span class="hljs-number">3</span>个点，其平均值满足阈值条件则报警
-diff(#<span class="hljs-number">3</span>): 拿最新push上来的点（被减数），与历史最新的<span class="hljs-number">3</span>个点（<span class="hljs-number">3</span>个减数）相减，得到<span class="hljs-number">3</span>个差，只要有一个差满足阈值条件则报警
-pdiff(#<span class="hljs-number">3</span>): 拿最新push上来的点，与历史最新的<span class="hljs-number">3</span>个点相减，得到<span class="hljs-number">3</span>个差，再将<span class="hljs-number">3</span>个差值分别除以减数，得到<span class="hljs-number">3</span>个商值，只要有一个商值满足阈值则报警   lookup(#<span class="hljs-number">3</span>,<span class="hljs-number">2</span>): 最新的<span class="hljs-number">3</span>个点中有两个满足条件则报警</code></pre>
+              <h6 id="fio是一个测试iops的工具，用来对硬件进行压力测试和验证，支持13种不同的I-O引擎，包括-sync-mmap-libaio-posixaio-SGv3-splice-null-network-syslet-guasi-solarisaio等等"><a href="#fio是一个测试iops的工具，用来对硬件进行压力测试和验证，支持13种不同的I-O引擎，包括-sync-mmap-libaio-posixaio-SGv3-splice-null-network-syslet-guasi-solarisaio等等" class="headerlink" title="fio是一个测试iops的工具，用来对硬件进行压力测试和验证，支持13种不同的I/O引擎，包括:sync,mmap,libaio,posixaio,SGv3,splice,null,network,syslet,guasi,solarisaio等等"></a>fio是一个测试iops的工具，用来对硬件进行压力测试和验证，支持13种不同的I/O引擎，包括:sync,mmap,libaio,posixaio,SGv3,splice,null,network,syslet,guasi,solarisaio等等</h6><pre><code class="hljs awk">github地址 ：https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/axboe/</span>fio</code></pre>
+
+<h5 id="fio使用"><a href="#fio使用" class="headerlink" title="fio使用"></a>fio使用</h5><p>通过使用Fio Job file (configuration) 来编辑好，我们要测试的具体参数值。通过命令 fio fio.cfg 开始测试</p>
+<pre><code class="hljs routeros">$ cat fio.cfg
+[global]
+<span class="hljs-attribute">filename</span>=/dev/sdb
+<span class="hljs-attribute">direct</span>=1
+<span class="hljs-attribute">ioengine</span>=libaio
+time_based
+<span class="hljs-attribute">runtime</span>=600
+<span class="hljs-attribute">iodepth</span>=4
+refill_buffers
+group_reporting
+wait_for_previous
+<span class="hljs-attribute">ramp_time</span>=5
+[JOB1]
+<span class="hljs-attribute">bs</span>=4k
+<span class="hljs-attribute">rw</span>=read
+[JOB2]
+<span class="hljs-attribute">bs</span>=32k
+<span class="hljs-attribute">rw</span>=read
+[JOB3]
+<span class="hljs-attribute">bs</span>=4k
+<span class="hljs-attribute">rw</span>=randread
+[JOB4]
+<span class="hljs-attribute">bs</span>=32k
+<span class="hljs-attribute">rw</span>=randread
+
+$ sudo fio fio.cfg | tee /tmp/fiotest.log</code></pre>
+
+<h5 id="配置参数说明"><a href="#配置参数说明" class="headerlink" title="配置参数说明"></a>配置参数说明</h5><pre><code class="hljs routeros"><span class="hljs-attribute">filename</span>=/dev/sdb        测试文件名称，通常选择需要测试的盘的data目录，做写测试的时候需要换成对应的/data/fioxxx要不然磁盘全盘随机写之后系统将不可用
+<span class="hljs-attribute">direct</span>=1                 测试过程绕过机器自带的buffer。使测试结果更真实。
+<span class="hljs-attribute">rw</span>=randwrite             测试随机写的I/O
+<span class="hljs-attribute">rw</span>=randrw                测试随机写和读的I/O
+<span class="hljs-attribute">bs</span>=4k                    单次io的块文件大小为16k
+<span class="hljs-attribute">bsrange</span>=512-2048         同上，提定数据块的大小范围，参考配置
+<span class="hljs-attribute">size</span>=5g                      本次的测试文件大小为5g，以每次4k的io进行测试。没有写默认为100%，写100%测试结果更真实
+<span class="hljs-attribute">numjobs</span>=4                本次的测试线程为4 这个参数的设定跟队列深度一样 会影响测试结果
+<span class="hljs-attribute">runtime</span>=600              测试时间为600秒，如果不写则一直将5g文件分4k每次写完为止。
+<span class="hljs-attribute">ioengine</span>=libaio          io引擎使用pync方式
+<span class="hljs-attribute">rwmixwrite</span>=30            在混合读写的模式下，写占30%
+group_reporting          关于显示结果的，汇总每个进程的信息。
+refill_buffers           为预设值跟I/O Buffer有关(refill the IO buffers on every submit),把Buffer跑慢之后就不会再跑到Buffer的值
+wait_for_previous        预设所有的job会一起执行，这个参数，可以让所有的job依次执行
+iodepth                  队列深度，就是一把喂给设备多少的io
+time_based               测试以时间为单位，另外一种方式是以kb_base
+ramp_time                设定ramp_time会让开始测试的一段时间不统计到整体里面，避免测试是跑在cache里面的</code></pre>
+
             </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
                 
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/%E7%9B%91%E6%8E%A7/">监控</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/openfalcon/">openfalcon</a>
-                    
-                  </div>
                 
               </div>
               
@@ -250,18 +277,12 @@ pdiff(#<span class="hljs-number">3</span>): 拿最新push上来的点，与历�
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/08/05/io%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7fio%E4%BD%BF%E7%94%A8/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">io测试工具fio使用</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/08/05/oepnfalcon/">
-                        <span class="hidden-mobile">openfalcon报警策略中diff和pdiff对比</span>
+                      <a href="/2020/08/05/openfalcon%E6%8A%A5%E8%AD%A6%E8%A7%A6%E5%8F%91%E5%87%BD%E6%95%B0/">
+                        <span class="hidden-mobile">openfalcon报警触发函数</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -426,7 +447,7 @@ pdiff(#<span class="hljs-number">3</span>): 拿最新push上来的点，与历�
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "openfalcon报警触发函数&nbsp;",
+        "io测试工具fio使用&nbsp;",
       ],
       cursorChar: "",
       typeSpeed: 70,
