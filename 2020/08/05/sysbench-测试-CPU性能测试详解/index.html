@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>io测试工具fio使用 - Hexo</title>
+  <title>sysbench 测试 CPU性能测试详解 - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -160,7 +160,7 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-08-05 17:14" pubdate>
+    <time datetime="2020-08-05 19:29" pubdate>
       August 5, 2020 pm
     </time>
   </div>
@@ -171,7 +171,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      543 字
+      325 字
     </span>
   
 
@@ -181,7 +181,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6
+      4
        分钟
     </span>
   
@@ -211,55 +211,37 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">io测试工具fio使用</h1>
+            <h1 style="display: none">sysbench 测试 CPU性能测试详解</h1>
             
             <div class="markdown-body" id="post-body">
-              <h6 id="fio是一个测试iops的工具，用来对硬件进行压力测试和验证，支持13种不同的I-O引擎，包括-sync-mmap-libaio-posixaio-SGv3-splice-null-network-syslet-guasi-solarisaio等等"><a href="#fio是一个测试iops的工具，用来对硬件进行压力测试和验证，支持13种不同的I-O引擎，包括-sync-mmap-libaio-posixaio-SGv3-splice-null-network-syslet-guasi-solarisaio等等" class="headerlink" title="fio是一个测试iops的工具，用来对硬件进行压力测试和验证，支持13种不同的I/O引擎，包括:sync,mmap,libaio,posixaio,SGv3,splice,null,network,syslet,guasi,solarisaio等等"></a>fio是一个测试iops的工具，用来对硬件进行压力测试和验证，支持13种不同的I/O引擎，包括:sync,mmap,libaio,posixaio,SGv3,splice,null,network,syslet,guasi,solarisaio等等</h6><pre><code class="hljs awk">github地址 ：https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/axboe/</span>fio</code></pre>
+              <h6 id="sysbench安装"><a href="#sysbench安装" class="headerlink" title="sysbench安装"></a>sysbench安装</h6><pre><code class="hljs cmake">yum <span class="hljs-keyword">install</span> sysbench</code></pre>
 
-<h5 id="fio使用"><a href="#fio使用" class="headerlink" title="fio使用"></a>fio使用</h5><h6 id="通过使用Fio-Job-file-configuration-来编辑好，我们要测试的具体参数值。通过命令-fio-fio-cfg-开始测试"><a href="#通过使用Fio-Job-file-configuration-来编辑好，我们要测试的具体参数值。通过命令-fio-fio-cfg-开始测试" class="headerlink" title="通过使用Fio Job file (configuration) 来编辑好，我们要测试的具体参数值。通过命令 fio fio.cfg 开始测试"></a>通过使用Fio Job file (configuration) 来编辑好，我们要测试的具体参数值。通过命令 fio fio.cfg 开始测试</h6><pre><code class="hljs routeros">$ cat fio.cfg
-[global]
-<span class="hljs-attribute">filename</span>=/dev/sdb
-<span class="hljs-attribute">direct</span>=1
-<span class="hljs-attribute">ioengine</span>=libaio
-time_based
-<span class="hljs-attribute">runtime</span>=600
-<span class="hljs-attribute">iodepth</span>=4
-refill_buffers
-group_reporting
-wait_for_previous
-<span class="hljs-attribute">ramp_time</span>=5
-[JOB1]
-<span class="hljs-attribute">bs</span>=4k
-<span class="hljs-attribute">rw</span>=read
-[JOB2]
-<span class="hljs-attribute">bs</span>=32k
-<span class="hljs-attribute">rw</span>=read
-[JOB3]
-<span class="hljs-attribute">bs</span>=4k
-<span class="hljs-attribute">rw</span>=randread
-[JOB4]
-<span class="hljs-attribute">bs</span>=32k
-<span class="hljs-attribute">rw</span>=randread
-
-$ sudo fio fio.cfg | tee /tmp/fiotest.log</code></pre>
-
-<h5 id="配置参数说明"><a href="#配置参数说明" class="headerlink" title="配置参数说明"></a>配置参数说明</h5><pre><code class="hljs routeros"><span class="hljs-attribute">filename</span>=/dev/sdb        测试文件名称，通常选择需要测试的盘的data目录，做写测试的时候需要换成对应的/data/fioxxx要不然磁盘全盘随机写之后系统将不可用
-<span class="hljs-attribute">direct</span>=1                 测试过程绕过机器自带的buffer。使测试结果更真实。
-<span class="hljs-attribute">rw</span>=randwrite             测试随机写的I/O
-<span class="hljs-attribute">rw</span>=randrw                测试随机写和读的I/O
-<span class="hljs-attribute">bs</span>=4k                    单次io的块文件大小为16k
-<span class="hljs-attribute">bsrange</span>=512-2048         同上，提定数据块的大小范围，参考配置
-<span class="hljs-attribute">size</span>=5g                      本次的测试文件大小为5g，以每次4k的io进行测试。没有写默认为100%，写100%测试结果更真实
-<span class="hljs-attribute">numjobs</span>=4                本次的测试线程为4 这个参数的设定跟队列深度一样 会影响测试结果
-<span class="hljs-attribute">runtime</span>=600              测试时间为600秒，如果不写则一直将5g文件分4k每次写完为止。
-<span class="hljs-attribute">ioengine</span>=libaio          io引擎使用pync方式
-<span class="hljs-attribute">rwmixwrite</span>=30            在混合读写的模式下，写占30%
-group_reporting          关于显示结果的，汇总每个进程的信息。
-refill_buffers           为预设值跟I/O Buffer有关(refill the IO buffers on every submit),把Buffer跑慢之后就不会再跑到Buffer的值
-wait_for_previous        预设所有的job会一起执行，这个参数，可以让所有的job依次执行
-iodepth                  队列深度，就是一把喂给设备多少的io
-time_based               测试以时间为单位，另外一种方式是以kb_base
-ramp_time                设定ramp_time会让开始测试的一段时间不统计到整体里面，避免测试是跑在cache里面的</code></pre>
+<h6 id="常用参数"><a href="#常用参数" class="headerlink" title="常用参数"></a>常用参数</h6><p>–cpu-max-prime: 素数生成数量的上限 –threads: 线程数 –time: 运行时长，单位秒 –events: event上限次数</p>
+<h6 id="结果分析"><a href="#结果分析" class="headerlink" title="结果分析"></a>结果分析</h6><pre><code class="hljs sql">sysbench 1.0.17 (using system LuaJIT 2.0.4)
+Running the test <span class="hljs-keyword">with</span> <span class="hljs-keyword">following</span> options:
+<span class="hljs-built_in">Number</span> <span class="hljs-keyword">of</span> threads: <span class="hljs-number">2</span>  //指定线程数为<span class="hljs-number">2</span>
+Initializing random <span class="hljs-built_in">number</span> generator <span class="hljs-keyword">from</span> <span class="hljs-keyword">current</span> <span class="hljs-built_in">time</span>
+Prime numbers <span class="hljs-keyword">limit</span>: <span class="hljs-number">20000</span> //每个线程产生的素数上限均为<span class="hljs-number">2</span>万个
+Initializing worker threads...
+Threads started!
+CPU speed:
+    <span class="hljs-keyword">events</span> per <span class="hljs-keyword">second</span>:   <span class="hljs-number">662.99</span> // 所有线程每秒完成了<span class="hljs-number">662.99</span>次<span class="hljs-keyword">event</span>
+<span class="hljs-keyword">General</span> <span class="hljs-keyword">statistics</span>:
+    total <span class="hljs-built_in">time</span>:                          <span class="hljs-number">10.0012</span>s     // 共耗时<span class="hljs-number">10</span>秒
+    total <span class="hljs-built_in">number</span> <span class="hljs-keyword">of</span> <span class="hljs-keyword">events</span>:              <span class="hljs-number">6632</span>  // <span class="hljs-number">10</span>秒内所有线程一共完成了<span class="hljs-number">6632</span>次<span class="hljs-keyword">event</span>
+Latency (ms):
+         <span class="hljs-keyword">min</span>:                                    <span class="hljs-number">3.01</span> // 完成<span class="hljs-number">1</span>次<span class="hljs-keyword">event</span>的最少耗时
+         <span class="hljs-keyword">avg</span>:                                    <span class="hljs-number">3.02</span> // 所有<span class="hljs-keyword">event</span>的平均耗时
+         <span class="hljs-keyword">max</span>:                                    <span class="hljs-number">3.09</span> // 完成<span class="hljs-number">1</span>次<span class="hljs-keyword">event</span>的最多耗时
+<span class="hljs-number">95</span>th percentile:                        <span class="hljs-number">3.02</span> // <span class="hljs-number">95</span>%次<span class="hljs-keyword">event</span>在<span class="hljs-number">3.02</span>秒毫秒内完成
+         <span class="hljs-keyword">sum</span>:                                <span class="hljs-number">19998.23</span>  // 每个线程耗时<span class="hljs-number">10</span>秒，<span class="hljs-number">2</span>个线程叠加耗时就是<span class="hljs-number">20</span>秒
+Threads fairness:
+    <span class="hljs-keyword">events</span> (<span class="hljs-keyword">avg</span>/<span class="hljs-keyword">stddev</span>):           <span class="hljs-number">3316.0000</span>/<span class="hljs-number">0.00</span> // 平均每个线程完成<span class="hljs-number">3316</span>次<span class="hljs-keyword">event</span>，标准差为<span class="hljs-number">0</span>
+    execution <span class="hljs-built_in">time</span> (<span class="hljs-keyword">avg</span>/<span class="hljs-keyword">stddev</span>):   <span class="hljs-number">9.9991</span>/<span class="hljs-number">0.00</span>  // 每个线程平均耗时<span class="hljs-number">9.9</span>秒，标准差为<span class="hljs-number">0</span>
+如果有<span class="hljs-number">2</span>台服务器进行CPU性能对比，当素数上限和线程数一致时：
+相同时间，比较<span class="hljs-keyword">event</span>
+相同<span class="hljs-keyword">event</span>，比较时间
+时间和<span class="hljs-keyword">event</span>都相同，比较<span class="hljs-keyword">stddev</span>(标准差)</code></pre>
             </div>
             <hr>
             <div>
@@ -268,7 +250,7 @@ ramp_time                设定ramp_time会让开始测试的一�
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Linux/">Linux</a>
+                      <a class="hover-with-bg" href="/categories/Linu-x/">Linu x</a>
                     
                   </div>
                 
@@ -276,7 +258,7 @@ ramp_time                设定ramp_time会让开始测试的一�
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/io/">io</a>
+                      <a class="hover-with-bg" href="/tags/cpu/">cpu</a>
                     
                   </div>
                 
@@ -289,18 +271,12 @@ ramp_time                设定ramp_time会让开始测试的一�
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/08/05/sysbench-%E6%B5%8B%E8%AF%95-CPU%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E8%AF%A6%E8%A7%A3/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">sysbench 测试 CPU性能测试详解</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/08/05/openfalcon%E6%8A%A5%E8%AD%A6%E8%A7%A6%E5%8F%91%E5%87%BD%E6%95%B0/">
-                        <span class="hidden-mobile">openfalcon报警触发函数</span>
+                      <a href="/2020/08/05/io%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7fio%E4%BD%BF%E7%94%A8/">
+                        <span class="hidden-mobile">io测试工具fio使用</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -465,7 +441,7 @@ ramp_time                设定ramp_time会让开始测试的一�
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "io测试工具fio使用&nbsp;",
+        "sysbench 测试 CPU性能测试详解&nbsp;",
       ],
       cursorChar: "",
       typeSpeed: 70,
