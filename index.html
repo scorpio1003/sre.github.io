@@ -176,7 +176,7 @@
     
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
-        <a href="/2020/08/05/tcpdump/">tcpdump</a>
+        <a href="/2020/08/05/tcpdump/">tcpdump抓包</a>
       </h1>
 
       <p class="index-excerpt">
@@ -185,7 +185,12 @@
           
             
           
-          
+          只获取GET请求：port 80 and (tcp[32:4] - 0x47455420 = 0)
+
+只获取POST请求：port 80 and (tcp[32:4] - 0x504F5354 = 0)
+
+获取第一个http响应数据包：port 80 and (tcp[32:6] - 0x485454502f31 = 0)
+port 80 and ((tcp[32:4] - 0x47455420 
         </a>
       </p>
 

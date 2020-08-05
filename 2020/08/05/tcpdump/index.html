@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>tcpdump - Hexo</title>
+  <title>tcpdump抓包 - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -171,7 +171,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      0 字
+      110 字
     </span>
   
 
@@ -211,10 +211,17 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">tcpdump</h1>
+            <h1 style="display: none">tcpdump抓包</h1>
             
             <div class="markdown-body" id="post-body">
-              
+              <h5 id="只获取GET请求："><a href="#只获取GET请求：" class="headerlink" title="只获取GET请求："></a>只获取GET请求：</h5><pre><code class="hljs apache"><span class="hljs-attribute">port</span> <span class="hljs-number">80</span> and (tcp[<span class="hljs-number">32</span>:<span class="hljs-number">4</span>] - <span class="hljs-number">0</span>x<span class="hljs-number">47455420</span> = <span class="hljs-number">0</span>)</code></pre>
+
+<h5 id="只获取POST请求："><a href="#只获取POST请求：" class="headerlink" title="只获取POST请求："></a>只获取POST请求：</h5><pre><code class="hljs apache"><span class="hljs-attribute">port</span> <span class="hljs-number">80</span> and (tcp[<span class="hljs-number">32</span>:<span class="hljs-number">4</span>] - <span class="hljs-number">0</span>x<span class="hljs-number">504</span>F<span class="hljs-number">5354</span> = <span class="hljs-number">0</span>)</code></pre>
+
+<h5 id="获取第一个http响应数据包："><a href="#获取第一个http响应数据包：" class="headerlink" title="获取第一个http响应数据包："></a>获取第一个http响应数据包：</h5><pre><code class="hljs apache"><span class="hljs-attribute">port</span> <span class="hljs-number">80</span> and (tcp[<span class="hljs-number">32</span>:<span class="hljs-number">6</span>] - <span class="hljs-number">0</span>x<span class="hljs-number">485454502</span>f<span class="hljs-number">31</span> = <span class="hljs-number">0</span>)
+<span class="hljs-attribute">port</span> <span class="hljs-number">80</span> and ((tcp[<span class="hljs-number">32</span>:<span class="hljs-number">4</span>] - <span class="hljs-number">0</span>x<span class="hljs-number">47455420</span> = <span class="hljs-number">0</span>) or (tcp[<span class="hljs-number">32</span>:<span class="hljs-number">4</span>] - <span class="hljs-number">0</span>x<span class="hljs-number">504</span>F<span class="hljs-number">5354</span> = <span class="hljs-number">0</span>) or (tcp[<span class="hljs-number">32</span>:<span class="hljs-number">6</span>] - <span class="hljs-number">0</span>x<span class="hljs-number">485454502</span>f<span class="hljs-number">31</span> = <span class="hljs-number">0</span>))</code></pre>
+
+<h5 id="获取所有HTTP请求（不包含syn，ack等，也就是有数据的tcp）："><a href="#获取所有HTTP请求（不包含syn，ack等，也就是有数据的tcp）：" class="headerlink" title="获取所有HTTP请求（不包含syn，ack等，也就是有数据的tcp）："></a>获取所有HTTP请求（不包含syn，ack等，也就是有数据的tcp）：</h5><pre><code class="hljs apache"><span class="hljs-attribute">tcp</span> port <span class="hljs-number">80</span> and (((ip[<span class="hljs-number">2</span>:<span class="hljs-number">2</span>] - ((ip[<span class="hljs-number">0</span>]&amp;<span class="hljs-number">0</span>xf)&lt;&lt;<span class="hljs-number">2</span>)) - ((tcp[<span class="hljs-number">12</span>]&amp;<span class="hljs-number">0</span>xf<span class="hljs-number">0</span>)&gt;&gt;<span class="hljs-number">2</span>)) != <span class="hljs-number">0</span>)</code></pre>
             </div>
             <hr>
             <div>
@@ -400,7 +407,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "tcpdump&nbsp;",
+        "tcpdump抓包&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
