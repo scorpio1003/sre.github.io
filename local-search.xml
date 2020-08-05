@@ -11,6 +11,18 @@
     <content type="html"><![CDATA[<h6 id="fio是一个测试iops的工具，用来对硬件进行压力测试和验证，支持13种不同的I-O引擎，包括-sync-mmap-libaio-posixaio-SGv3-splice-null-network-syslet-guasi-solarisaio等等"><a href="#fio是一个测试iops的工具，用来对硬件进行压力测试和验证，支持13种不同的I-O引擎，包括-sync-mmap-libaio-posixaio-SGv3-splice-null-network-syslet-guasi-solarisaio等等" class="headerlink" title="fio是一个测试iops的工具，用来对硬件进行压力测试和验证，支持13种不同的I/O引擎，包括:sync,mmap,libaio,posixaio,SGv3,splice,null,network,syslet,guasi,solarisaio等等"></a>fio是一个测试iops的工具，用来对硬件进行压力测试和验证，支持13种不同的I/O引擎，包括:sync,mmap,libaio,posixaio,SGv3,splice,null,network,syslet,guasi,solarisaio等等</h6><pre><code class="hljs awk">github地址 ：https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/axboe/</span>fio</code></pre><h5 id="fio使用"><a href="#fio使用" class="headerlink" title="fio使用"></a>fio使用</h5><p>通过使用Fio Job file (configuration) 来编辑好，我们要测试的具体参数值。通过命令 fio fio.cfg 开始测试</p><pre><code class="hljs routeros">$ cat fio.cfg[global]<span class="hljs-attribute">filename</span>=/dev/sdb<span class="hljs-attribute">direct</span>=1<span class="hljs-attribute">ioengine</span>=libaiotime_based<span class="hljs-attribute">runtime</span>=600<span class="hljs-attribute">iodepth</span>=4refill_buffersgroup_reportingwait_for_previous<span class="hljs-attribute">ramp_time</span>=5[JOB1]<span class="hljs-attribute">bs</span>=4k<span class="hljs-attribute">rw</span>=read[JOB2]<span class="hljs-attribute">bs</span>=32k<span class="hljs-attribute">rw</span>=read[JOB3]<span class="hljs-attribute">bs</span>=4k<span class="hljs-attribute">rw</span>=randread[JOB4]<span class="hljs-attribute">bs</span>=32k<span class="hljs-attribute">rw</span>=randread$ sudo fio fio.cfg | tee /tmp/fiotest.log</code></pre><h5 id="配置参数说明"><a href="#配置参数说明" class="headerlink" title="配置参数说明"></a>配置参数说明</h5><pre><code class="hljs routeros"><span class="hljs-attribute">filename</span>=/dev/sdb        测试文件名称，通常选择需要测试的盘的data目录，做写测试的时候需要换成对应的/data/fioxxx要不然磁盘全盘随机写之后系统将不可用<span class="hljs-attribute">direct</span>=1                 测试过程绕过机器自带的buffer。使测试结果更真实。<span class="hljs-attribute">rw</span>=randwrite             测试随机写的I/O<span class="hljs-attribute">rw</span>=randrw                测试随机写和读的I/O<span class="hljs-attribute">bs</span>=4k                    单次io的块文件大小为16k<span class="hljs-attribute">bsrange</span>=512-2048         同上，提定数据块的大小范围，参考配置<span class="hljs-attribute">size</span>=5g                      本次的测试文件大小为5g，以每次4k的io进行测试。没有写默认为100%，写100%测试结果更真实<span class="hljs-attribute">numjobs</span>=4                本次的测试线程为4 这个参数的设定跟队列深度一样 会影响测试结果<span class="hljs-attribute">runtime</span>=600              测试时间为600秒，如果不写则一直将5g文件分4k每次写完为止。<span class="hljs-attribute">ioengine</span>=libaio          io引擎使用pync方式<span class="hljs-attribute">rwmixwrite</span>=30            在混合读写的模式下，写占30%group_reporting          关于显示结果的，汇总每个进程的信息。refill_buffers           为预设值跟I/O Buffer有关(refill the IO buffers on every submit),把Buffer跑慢之后就不会再跑到Buffer的值wait_for_previous        预设所有的job会一起执行，这个参数，可以让所有的job依次执行iodepth                  队列深度，就是一把喂给设备多少的iotime_based               测试以时间为单位，另外一种方式是以kb_baseramp_time                设定ramp_time会让开始测试的一段时间不统计到整体里面，避免测试是跑在cache里面的</code></pre>]]></content>
     
     
+    <categories>
+      
+      <category>Linux</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>io</tag>
+      
+    </tags>
     
   </entry>
   
