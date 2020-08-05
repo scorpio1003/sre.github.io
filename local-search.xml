@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>kafka运维常用命令</title>
+    <link href="/2020/08/05/kafka%E8%BF%90%E7%BB%B4%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+    <url>/2020/08/05/kafka%E8%BF%90%E7%BB%B4%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    
+    <content type="html"><![CDATA[<p>  查看所有topics<br>bin/kafka-topics.sh –zookeeper  localhost:2181 –list</p><p>查看消费组<br>bin/kafka-consumer-groups.sh –bootstrap-server localhost:9092 –list</p><pre><code class="hljs brainfuck"><span class="hljs-comment">创建topic</span><span class="hljs-comment">bin/kafka</span><span class="hljs-literal">-</span><span class="hljs-comment">topics</span><span class="hljs-string">.</span><span class="hljs-comment">sh</span> --<span class="hljs-comment">create</span> --<span class="hljs-comment">zookeeper</span> <span class="hljs-comment">localhost:2181</span> --<span class="hljs-comment">replication</span><span class="hljs-literal">-</span><span class="hljs-comment">factor</span> <span class="hljs-comment">3</span> --<span class="hljs-comment">partitions</span> <span class="hljs-comment">6</span> --<span class="hljs-comment">topic</span> <span class="hljs-comment">test</span><span class="hljs-comment"></span><span class="hljs-comment"></span><span class="hljs-comment">查看topic</span> <span class="hljs-comment">分区副本状态</span><span class="hljs-comment">bin/kafka</span><span class="hljs-literal">-</span><span class="hljs-comment">topics</span><span class="hljs-string">.</span><span class="hljs-comment">sh</span> --<span class="hljs-comment">describe</span> --<span class="hljs-comment">zookeeper</span> <span class="hljs-comment">localhost:2181</span> --<span class="hljs-comment">topic</span> <span class="hljs-comment">test_event</span><span class="hljs-comment"></span><span class="hljs-comment"></span><span class="hljs-comment">扩分区，增加分区</span><span class="hljs-comment">bin/kafka</span><span class="hljs-literal">-</span><span class="hljs-comment">topics</span><span class="hljs-string">.</span><span class="hljs-comment">sh</span> --<span class="hljs-comment">alter</span> --<span class="hljs-comment">topic</span> <span class="hljs-comment">test_event</span> --<span class="hljs-comment">zookeeper</span> <span class="hljs-comment">localhost:1281</span> --<span class="hljs-comment">partitions</span> <span class="hljs-comment">12</span><span class="hljs-comment"></span><span class="hljs-comment"></span><span class="hljs-comment">查看某个消费组</span> <span class="hljs-comment">消费某个topic</span> <span class="hljs-comment">的情况</span><span class="hljs-comment"></span><span class="hljs-string">.</span><span class="hljs-comment">/bin/kafka</span><span class="hljs-literal">-</span><span class="hljs-comment">consumer</span><span class="hljs-literal">-</span><span class="hljs-comment">groups</span><span class="hljs-string">.</span><span class="hljs-comment">sh</span> --<span class="hljs-comment">new</span><span class="hljs-literal">-</span><span class="hljs-comment">consumer</span> --<span class="hljs-comment">bootstrap</span><span class="hljs-literal">-</span><span class="hljs-comment">server</span>  <span class="hljs-comment">localhost:9092</span> --<span class="hljs-comment">describe</span> --<span class="hljs-comment">group</span> <span class="hljs-comment">test_op|grep</span> <span class="hljs-comment">test_event</span><span class="hljs-comment"></span><span class="hljs-comment"></span><span class="hljs-comment">查看某个消费组</span> <span class="hljs-comment">消费某个topic</span> <span class="hljs-comment">的情况</span>  --<span class="hljs-comment">new</span><span class="hljs-literal">-</span><span class="hljs-comment">consumer新版本已移除</span><span class="hljs-comment">#bin/kafka</span><span class="hljs-literal">-</span><span class="hljs-comment">consumer</span><span class="hljs-literal">-</span><span class="hljs-comment">groups</span><span class="hljs-string">.</span><span class="hljs-comment">sh</span>  --<span class="hljs-comment">bootstrap</span><span class="hljs-literal">-</span><span class="hljs-comment">server</span> <span class="hljs-comment">127</span><span class="hljs-string">.</span><span class="hljs-comment">0</span><span class="hljs-string">.</span><span class="hljs-comment">0</span><span class="hljs-string">.</span><span class="hljs-comment">1:9092</span> --<span class="hljs-comment">describe</span> --<span class="hljs-comment">group</span> <span class="hljs-comment">test_op</span></code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>Linux</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>kafka</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>lsyncd实时同步神器</title>
     <link href="/2020/08/05/lsyncd%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5%E7%A5%9E%E5%99%A8/"/>
     <url>/2020/08/05/lsyncd%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5%E7%A5%9E%E5%99%A8/</url>
