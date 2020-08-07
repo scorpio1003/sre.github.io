@@ -17,10 +17,20 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Categories - Hexo</title>
+  <title>lsyncd实时同步神器 - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -43,7 +53,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -149,7 +159,7 @@
 </nav>
 
     <div class="banner intro-2" id="background" parallax=true
-         style="background: url('/img/categorie.png') no-repeat center center;
+         style="background: url('/img/home.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -157,6 +167,40 @@
             <span class="h2" id="subtitle">
               
             </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-08-05 19:41" pubdate>
+      August 5, 2020 pm
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      265 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      3
+       分钟
+    </span>
+  
+
+  
+  
+</div>
 
             
           </div>
@@ -169,176 +213,118 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">lsyncd实时同步神器</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <h6 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h6><pre><code class="hljs routeros">apt-<span class="hljs-builtin-name">get</span> install lsyncd</code></pre>
+
+<h6 id="配置文件详解-cat-etc-lsyncd-lsyncd-lua"><a href="#配置文件详解-cat-etc-lsyncd-lsyncd-lua" class="headerlink" title="配置文件详解 cat /etc/lsyncd/lsyncd.lua"></a>配置文件详解 cat /etc/lsyncd/lsyncd.lua</h6><pre><code class="hljs nix">settings  &#123;
+
+    <span class="hljs-attr">logfile</span> = <span class="hljs-string">&quot;/var/log/lsyncd/lsyncd.log&quot;</span>, --定义日志文件
+    <span class="hljs-attr">statusFile</span> = <span class="hljs-string">&quot;/var/log/lsyncd/lsyncd.status&quot;</span>, --定义状态文件
+    <span class="hljs-attr">maxProcesses</span> = <span class="hljs-number">1</span> -- 同步进程的最大个数。假如同时有<span class="hljs-number">20</span>个文件需要同步，而<span class="hljs-attr">maxProcesses</span> = <span class="hljs-number">8</span>，则最大能看到有<span class="hljs-number">8</span>个rysnc进程
+&#125;
 
 
+sync &#123;
+        default.rsyncssh, --同步到远程主机目录，rsync的ssh模式，需要使用key来认证
+        <span class="hljs-attr">source</span> = <span class="hljs-string">&quot;/etc/nginx&quot;</span>, -- 同步的源目录，使用绝对路径
+        <span class="hljs-attr">host</span> = <span class="hljs-string">&quot;10.6.6.6&quot;</span>,
+        <span class="hljs-attr">targetdir</span> = <span class="hljs-string">&quot;/etc/nginx&quot;</span>, -- 定义目标目录
+        <span class="hljs-attr">init</span> = <span class="hljs-literal">false</span>, --这是一个优化选项，当<span class="hljs-attr">init</span> = <span class="hljs-literal">false</span>，只同步进程启动以后发生改动事件的文件，原有的目录即使有差异也不会同步。默认是<span class="hljs-literal">true</span>
+        <span class="hljs-attr">delay</span> = <span class="hljs-number">0</span>,
 
+<span class="hljs-attr">rsync</span>  = &#123;
+        <span class="hljs-attr">binary</span>    = <span class="hljs-string">&quot;/usr/bin/rsync&quot;</span>,
+        <span class="hljs-attr">archive</span>   = <span class="hljs-literal">true</span>,
+        <span class="hljs-attr">compress</span>  = <span class="hljs-literal">true</span>, --压缩传输默认为<span class="hljs-literal">true</span>。在带宽与cpu负载之间权衡，本地目录同步可以考虑把它设为<span class="hljs-literal">false</span>
+        <span class="hljs-attr">verbose</span>   = <span class="hljs-literal">true</span>
+&#125;,
 
-
-
-
-<div class="category-list">
-  
-  
-  
-  
-    
-    
-    <div class="category row">
-      <a
-        class="category-item collapsed list-group-item category-item-action col-10 col-md-11"
-        id="heading-ckdjnbiup0003a2fy4p7p8ivh" role="tab" data-toggle="collapse" href="#collapse-ckdjnbiup0003a2fy4p7p8ivh"
-        aria-expanded="false"
-      >
-        Linux
-        <i class="iconfont icon-arrowright"></i>
-      </a>
-      <a href="/categories/Linux/" class="category-count col-2 col-md-1">
-        <i class="iconfont icon-articles"></i>
-        <span>5</span>
-      </a>
-      <div class="category-collapse">
-        
-          
-  <div id="collapse-ckdjnbiup0003a2fy4p7p8ivh" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-ckdjnbiup0003a2fy4p7p8ivh">
-    
-    
-    
-      
-      
-        <a href="/2020/08/05/kafka%E8%BF%90%E7%BB%B4%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="list-group-item list-group-item-action">
-          <span class="category-post">kafka运维常用命令</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2020/08/05/lsyncd%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5%E7%A5%9E%E5%99%A8/" class="list-group-item list-group-item-action">
-          <span class="category-post">lsyncd实时同步神器</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2020/08/05/sysbench-%E6%B5%8B%E8%AF%95-CPU%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E8%AF%A6%E8%A7%A3/" class="list-group-item list-group-item-action">
-          <span class="category-post">sysbench 测试 CPU性能测试详解</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2020/08/05/io%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7fio%E4%BD%BF%E7%94%A8/" class="list-group-item list-group-item-action">
-          <span class="category-post">io测试工具fio使用</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2020/08/05/tcpdump/" class="list-group-item list-group-item-action">
-          <span class="category-post">tcpdump抓包</span>
-        </a>
-      
-    
-  </div>
-
-        
-      </div>
-    </div>
-  
-    
-    
-    <div class="category row">
-      <a
-        class="category-item collapsed list-group-item category-item-action col-10 col-md-11"
-        id="heading-ckdjnbiv1000ja2fycnz10ifm" role="tab" data-toggle="collapse" href="#collapse-ckdjnbiv1000ja2fycnz10ifm"
-        aria-expanded="false"
-      >
-        监控
-        <i class="iconfont icon-arrowright"></i>
-      </a>
-      <a href="/categories/%E7%9B%91%E6%8E%A7/" class="category-count col-2 col-md-1">
-        <i class="iconfont icon-articles"></i>
-        <span>2</span>
-      </a>
-      <div class="category-collapse">
-        
-          
-  <div id="collapse-ckdjnbiv1000ja2fycnz10ifm" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-ckdjnbiv1000ja2fycnz10ifm">
-    
-    
-    
-      
-      
-        <a href="/2020/08/05/openfalcon%E6%8A%A5%E8%AD%A6%E8%A7%A6%E5%8F%91%E5%87%BD%E6%95%B0/" class="list-group-item list-group-item-action">
-          <span class="category-post">openfalcon报警触发函数</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2020/08/05/openfalcon%E6%8A%A5%E8%AD%A6%E7%AD%96%E7%95%A5%E4%B8%ADdiff%E5%92%8Cpdiff%E5%AF%B9%E6%AF%94/" class="list-group-item list-group-item-action">
-          <span class="category-post">openfalcon报警策略中diff和pdiff对比</span>
-        </a>
-      
-    
-  </div>
-
-        
-      </div>
-    </div>
-  
-    
-    
-    <div class="category row">
-      <a
-        class="category-item collapsed list-group-item category-item-action col-10 col-md-11"
-        id="heading-ckdjnbiv4000sa2fyei3e3xfz" role="tab" data-toggle="collapse" href="#collapse-ckdjnbiv4000sa2fyei3e3xfz"
-        aria-expanded="false"
-      >
-        kubernetes
-        <i class="iconfont icon-arrowright"></i>
-      </a>
-      <a href="/categories/kubernetes/" class="category-count col-2 col-md-1">
-        <i class="iconfont icon-articles"></i>
-        <span>1</span>
-      </a>
-      <div class="category-collapse">
-        
-          
-  <div id="collapse-ckdjnbiv4000sa2fyei3e3xfz" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-ckdjnbiv4000sa2fyei3e3xfz">
-    
-    
-    
-      
-      
-        <a href="/2020/08/06/%E9%98%BF%E9%87%8C%E4%BA%91%E5%AE%B9%E5%99%A8%E5%B9%B3%E5%8F%B0%E8%BF%90%E7%BB%B4-kubectl%E5%B7%A5%E5%85%B7%E9%9B%86/" class="list-group-item list-group-item-action">
-          <span class="category-post">k8s工具集</span>
-        </a>
-      
-    
-  </div>
-
-        
-      </div>
-    </div>
-  
-</div>
-
-              </div>
+ <span class="hljs-attr">ssh</span>   = &#123;
+        <span class="hljs-attr">port</span>  = <span class="hljs-number">22</span> <span class="hljs-comment">#ssh端口,目标机器需要做ssh免密</span>
+         &#125;
+&#125;</code></pre>
             </div>
-          </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Linux/">Linux</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/lsyncd/">lsyncd</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/08/05/kafka%E8%BF%90%E7%BB%B4%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">kafka运维常用命令</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/08/05/sysbench-%E6%B5%8B%E8%AF%95-CPU%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E8%AF%A6%E8%A7%A3/">
+                        <span class="hidden-mobile">sysbench 测试 CPU性能测试详解</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
   </main>
 
@@ -442,6 +428,31 @@
 
 
 
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
 
 
   <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
@@ -449,7 +460,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "分类&nbsp;",
+        "lsyncd实时同步神器&nbsp;",
       ],
       cursorChar: "",
       typeSpeed: 70,
@@ -464,6 +475,21 @@
 
 
 
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
 
 
   <script  src="/js/local-search.js" ></script>
@@ -477,6 +503,20 @@
   </script>
 
 
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
 
 
 
