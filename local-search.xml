@@ -56,31 +56,6 @@
   
   
   <entry>
-    <title>lsyncd实时同步神器</title>
-    <link href="/2020/08/05/lsyncd%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5%E7%A5%9E%E5%99%A8/"/>
-    <url>/2020/08/05/lsyncd%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5%E7%A5%9E%E5%99%A8/</url>
-    
-    <content type="html"><![CDATA[<h6 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h6><pre><code class="hljs routeros">apt-<span class="hljs-builtin-name">get</span> install lsyncd</code></pre><h6 id="配置文件详解-cat-etc-lsyncd-lsyncd-lua"><a href="#配置文件详解-cat-etc-lsyncd-lsyncd-lua" class="headerlink" title="配置文件详解 cat /etc/lsyncd/lsyncd.lua"></a>配置文件详解 cat /etc/lsyncd/lsyncd.lua</h6><pre><code class="hljs nix">settings  &#123;    <span class="hljs-attr">logfile</span> = <span class="hljs-string">&quot;/var/log/lsyncd/lsyncd.log&quot;</span>, --定义日志文件    <span class="hljs-attr">statusFile</span> = <span class="hljs-string">&quot;/var/log/lsyncd/lsyncd.status&quot;</span>, --定义状态文件    <span class="hljs-attr">maxProcesses</span> = <span class="hljs-number">1</span> -- 同步进程的最大个数。假如同时有<span class="hljs-number">20</span>个文件需要同步，而<span class="hljs-attr">maxProcesses</span> = <span class="hljs-number">8</span>，则最大能看到有<span class="hljs-number">8</span>个rysnc进程&#125;sync &#123;        default.rsyncssh, --同步到远程主机目录，rsync的ssh模式，需要使用key来认证        <span class="hljs-attr">source</span> = <span class="hljs-string">&quot;/etc/nginx&quot;</span>, -- 同步的源目录，使用绝对路径        <span class="hljs-attr">host</span> = <span class="hljs-string">&quot;10.6.6.6&quot;</span>,        <span class="hljs-attr">targetdir</span> = <span class="hljs-string">&quot;/etc/nginx&quot;</span>, -- 定义目标目录        <span class="hljs-attr">init</span> = <span class="hljs-literal">false</span>, --这是一个优化选项，当<span class="hljs-attr">init</span> = <span class="hljs-literal">false</span>，只同步进程启动以后发生改动事件的文件，原有的目录即使有差异也不会同步。默认是<span class="hljs-literal">true</span>        <span class="hljs-attr">delay</span> = <span class="hljs-number">0</span>,<span class="hljs-attr">rsync</span>  = &#123;        <span class="hljs-attr">binary</span>    = <span class="hljs-string">&quot;/usr/bin/rsync&quot;</span>,        <span class="hljs-attr">archive</span>   = <span class="hljs-literal">true</span>,        <span class="hljs-attr">compress</span>  = <span class="hljs-literal">true</span>, --压缩传输默认为<span class="hljs-literal">true</span>。在带宽与cpu负载之间权衡，本地目录同步可以考虑把它设为<span class="hljs-literal">false</span>        <span class="hljs-attr">verbose</span>   = <span class="hljs-literal">true</span>&#125;, <span class="hljs-attr">ssh</span>   = &#123;        <span class="hljs-attr">port</span>  = <span class="hljs-number">22</span> <span class="hljs-comment">#ssh端口,目标机器需要做sshmian mi</span>         &#125;&#125;</code></pre>]]></content>
-    
-    
-    <categories>
-      
-      <category>Linux</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>lsyncd</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>sysbench 测试 CPU性能测试详解</title>
     <link href="/2020/08/05/sysbench-%E6%B5%8B%E8%AF%95-CPU%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E8%AF%A6%E8%A7%A3/"/>
     <url>/2020/08/05/sysbench-%E6%B5%8B%E8%AF%95-CPU%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E8%AF%A6%E8%A7%A3/</url>
