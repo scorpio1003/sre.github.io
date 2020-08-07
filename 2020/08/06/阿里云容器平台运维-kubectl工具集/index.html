@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>io测试工具fio使用 - Hexo</title>
+  <title>k8s工具集 - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -172,8 +172,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-08-05 17:14" pubdate>
-      August 5, 2020 pm
+    <time datetime="2020-08-06 00:48" pubdate>
+      August 6, 2020 am
     </time>
   </div>
 
@@ -183,7 +183,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      543 字
+      129 字
     </span>
   
 
@@ -193,7 +193,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6
+      1
        分钟
     </span>
   
@@ -223,55 +223,18 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">io测试工具fio使用</h1>
+            <h1 style="display: none">k8s工具集</h1>
             
             <div class="markdown-body" id="post-body">
-              <h6 id="fio是一个测试iops的工具，用来对硬件进行压力测试和验证，支持13种不同的I-O引擎，包括-sync-mmap-libaio-posixaio-SGv3-splice-null-network-syslet-guasi-solarisaio等等"><a href="#fio是一个测试iops的工具，用来对硬件进行压力测试和验证，支持13种不同的I-O引擎，包括-sync-mmap-libaio-posixaio-SGv3-splice-null-network-syslet-guasi-solarisaio等等" class="headerlink" title="fio是一个测试iops的工具，用来对硬件进行压力测试和验证，支持13种不同的I/O引擎，包括:sync,mmap,libaio,posixaio,SGv3,splice,null,network,syslet,guasi,solarisaio等等"></a>fio是一个测试iops的工具，用来对硬件进行压力测试和验证，支持13种不同的I/O引擎，包括:sync,mmap,libaio,posixaio,SGv3,splice,null,network,syslet,guasi,solarisaio等等</h6><pre><code class="hljs awk">github地址 ：https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/axboe/</span>fio</code></pre>
-
-<h5 id="fio使用"><a href="#fio使用" class="headerlink" title="fio使用"></a>fio使用</h5><h6 id="通过使用Fio-Job-file-configuration-来编辑好，我们要测试的具体参数值。通过命令-fio-fio-cfg-开始测试"><a href="#通过使用Fio-Job-file-configuration-来编辑好，我们要测试的具体参数值。通过命令-fio-fio-cfg-开始测试" class="headerlink" title="通过使用Fio Job file (configuration) 来编辑好，我们要测试的具体参数值。通过命令 fio fio.cfg 开始测试"></a>通过使用Fio Job file (configuration) 来编辑好，我们要测试的具体参数值。通过命令 fio fio.cfg 开始测试</h6><pre><code class="hljs routeros">$ cat fio.cfg
-[global]
-<span class="hljs-attribute">filename</span>=/dev/sdb
-<span class="hljs-attribute">direct</span>=1
-<span class="hljs-attribute">ioengine</span>=libaio
-time_based
-<span class="hljs-attribute">runtime</span>=600
-<span class="hljs-attribute">iodepth</span>=4
-refill_buffers
-group_reporting
-wait_for_previous
-<span class="hljs-attribute">ramp_time</span>=5
-[JOB1]
-<span class="hljs-attribute">bs</span>=4k
-<span class="hljs-attribute">rw</span>=read
-[JOB2]
-<span class="hljs-attribute">bs</span>=32k
-<span class="hljs-attribute">rw</span>=read
-[JOB3]
-<span class="hljs-attribute">bs</span>=4k
-<span class="hljs-attribute">rw</span>=randread
-[JOB4]
-<span class="hljs-attribute">bs</span>=32k
-<span class="hljs-attribute">rw</span>=randread
-
-$ sudo fio fio.cfg | tee /tmp/fiotest.log</code></pre>
-
-<h5 id="配置参数说明"><a href="#配置参数说明" class="headerlink" title="配置参数说明"></a>配置参数说明</h5><pre><code class="hljs routeros"><span class="hljs-attribute">filename</span>=/dev/sdb        测试文件名称，通常选择需要测试的盘的data目录，做写测试的时候需要换成对应的/data/fioxxx要不然磁盘全盘随机写之后系统将不可用
-<span class="hljs-attribute">direct</span>=1                 测试过程绕过机器自带的buffer。使测试结果更真实。
-<span class="hljs-attribute">rw</span>=randwrite             测试随机写的I/O
-<span class="hljs-attribute">rw</span>=randrw                测试随机写和读的I/O
-<span class="hljs-attribute">bs</span>=4k                    单次io的块文件大小为16k
-<span class="hljs-attribute">bsrange</span>=512-2048         同上，提定数据块的大小范围，参考配置
-<span class="hljs-attribute">size</span>=5g                      本次的测试文件大小为5g，以每次4k的io进行测试。没有写默认为100%，写100%测试结果更真实
-<span class="hljs-attribute">numjobs</span>=4                本次的测试线程为4 这个参数的设定跟队列深度一样 会影响测试结果
-<span class="hljs-attribute">runtime</span>=600              测试时间为600秒，如果不写则一直将5g文件分4k每次写完为止。
-<span class="hljs-attribute">ioengine</span>=libaio          io引擎使用pync方式
-<span class="hljs-attribute">rwmixwrite</span>=30            在混合读写的模式下，写占30%
-group_reporting          关于显示结果的，汇总每个进程的信息。
-refill_buffers           为预设值跟I/O Buffer有关(refill the IO buffers on every submit),把Buffer跑慢之后就不会再跑到Buffer的值
-wait_for_previous        预设所有的job会一起执行，这个参数，可以让所有的job依次执行
-iodepth                  队列深度，就是一把喂给设备多少的io
-time_based               测试以时间为单位，另外一种方式是以kb_base
-ramp_time                设定ramp_time会让开始测试的一段时间不统计到整体里面，避免测试是跑在cache里面的</code></pre>
+              <h6 id="集群切换、命名空间切换工具kubectlx-kubens"><a href="#集群切换、命名空间切换工具kubectlx-kubens" class="headerlink" title="集群切换、命名空间切换工具kubectlx, kubens"></a>集群切换、命名空间切换工具kubectlx, kubens</h6><pre><code class="hljs awk">https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/ahmetb/</span>kubectx</code></pre>
+<h6 id="Kubectl短命令集"><a href="#Kubectl短命令集" class="headerlink" title="Kubectl短命令集"></a>Kubectl短命令集</h6><pre><code class="hljs awk">https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/ahmetb/</span>kubectl-aliases</code></pre>
+<h6 id="命令行展示Kubernetes的集群名称和NS名称"><a href="#命令行展示Kubernetes的集群名称和NS名称" class="headerlink" title="命令行展示Kubernetes的集群名称和NS名称"></a>命令行展示Kubernetes的集群名称和NS名称</h6><pre><code class="hljs awk">https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/jonmosco/</span>kube-ps1</code></pre>
+<h6 id="K8S资源跟踪工具kubespy"><a href="#K8S资源跟踪工具kubespy" class="headerlink" title="K8S资源跟踪工具kubespy"></a>K8S资源跟踪工具kubespy</h6><pre><code class="hljs awk">https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/pulumi/</span>kubespy</code></pre>
+<h6 id="Kubectl-插件管理工具-krew"><a href="#Kubectl-插件管理工具-krew" class="headerlink" title="Kubectl 插件管理工具 krew"></a>Kubectl 插件管理工具 krew</h6><pre><code class="hljs awk">https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/GoogleContainerTools/</span>krew</code></pre>
+<h6 id="同时查看多个POD，或者一个pod中多个容器的log-stern"><a href="#同时查看多个POD，或者一个pod中多个容器的log-stern" class="headerlink" title="同时查看多个POD，或者一个pod中多个容器的log: stern"></a>同时查看多个POD，或者一个pod中多个容器的log: stern</h6><pre><code class="hljs awk">https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/wercker/</span>stern</code></pre>
+<h6 id="Docker-Image分析工具-dive"><a href="#Docker-Image分析工具-dive" class="headerlink" title="Docker Image分析工具: dive"></a>Docker Image分析工具: dive</h6><pre><code class="hljs awk">https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/wagoodman/</span>dive</code></pre>
+<h6 id="YAML编辑工具vscode"><a href="#YAML编辑工具vscode" class="headerlink" title="YAML编辑工具vscode"></a>YAML编辑工具vscode</h6><pre><code class="hljs awk">https:<span class="hljs-regexp">//</span>code.visualstudio.com/</code></pre>
+<h6 id="Vscode编辑yaml的扩展插件"><a href="#Vscode编辑yaml的扩展插件" class="headerlink" title="Vscode编辑yaml的扩展插件"></a>Vscode编辑yaml的扩展插件</h6><pre><code class="hljs vim">http<span class="hljs-variable">s:</span>//marketplace.visualstudio.<span class="hljs-keyword">com</span>/<span class="hljs-built_in">items</span>?itemNam <span class="hljs-keyword">e</span>=redhat.vscode-yaml</code></pre>
             </div>
             <hr>
             <div>
@@ -280,7 +243,7 @@ ramp_time                设定ramp_time会让开始测试的一�
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Linux/">Linux</a>
+                      <a class="hover-with-bg" href="/categories/kubernetes/">kubernetes</a>
                     
                   </div>
                 
@@ -288,7 +251,9 @@ ramp_time                设定ramp_time会让开始测试的一�
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/io/">io</a>
+                      <a class="hover-with-bg" href="/tags/docker/">docker</a>
+                    
+                      <a class="hover-with-bg" href="/tags/k8s/">k8s</a>
                     
                   </div>
                 
@@ -301,18 +266,12 @@ ramp_time                设定ramp_time会让开始测试的一�
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/08/05/sysbench-%E6%B5%8B%E8%AF%95-CPU%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E8%AF%A6%E8%A7%A3/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">sysbench 测试 CPU性能测试详解</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/08/05/openfalcon%E6%8A%A5%E8%AD%A6%E8%A7%A6%E5%8F%91%E5%87%BD%E6%95%B0/">
-                        <span class="hidden-mobile">openfalcon报警触发函数</span>
+                      <a href="/2020/08/05/kafka%E8%BF%90%E7%BB%B4%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
+                        <span class="hidden-mobile">kafka运维常用命令</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -477,7 +436,7 @@ ramp_time                设定ramp_time会让开始测试的一�
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "io测试工具fio使用&nbsp;",
+        "k8s工具集&nbsp;",
       ],
       cursorChar: "",
       typeSpeed: 70,

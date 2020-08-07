@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;dark&#34;>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -119,6 +119,18 @@
             </li>
           
         
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
@@ -182,7 +194,7 @@
     <div class="category row">
       <a
         class="category-item collapsed list-group-item category-item-action col-10 col-md-11"
-        id="heading-ckdhbeszz0003oify2jwr72pf" role="tab" data-toggle="collapse" href="#collapse-ckdhbeszz0003oify2jwr72pf"
+        id="heading-ckdjmzblg00035bfyc9jmg46n" role="tab" data-toggle="collapse" href="#collapse-ckdjmzblg00035bfyc9jmg46n"
         aria-expanded="false"
       >
         Linux
@@ -195,8 +207,8 @@
       <div class="category-collapse">
         
           
-  <div id="collapse-ckdhbeszz0003oify2jwr72pf" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-ckdhbeszz0003oify2jwr72pf">
+  <div id="collapse-ckdjmzblg00035bfyc9jmg46n" class="collapse in" role="tabpanel"
+       aria-labelledby="heading-ckdjmzblg00035bfyc9jmg46n">
     
     
     
@@ -246,7 +258,7 @@
     <div class="category row">
       <a
         class="category-item collapsed list-group-item category-item-action col-10 col-md-11"
-        id="heading-ckdhbet07000doifycggn3vqa" role="tab" data-toggle="collapse" href="#collapse-ckdhbet07000doifycggn3vqa"
+        id="heading-ckdjmzblz000j5bfy3dhlawo7" role="tab" data-toggle="collapse" href="#collapse-ckdjmzblz000j5bfy3dhlawo7"
         aria-expanded="false"
       >
         监控
@@ -259,8 +271,8 @@
       <div class="category-collapse">
         
           
-  <div id="collapse-ckdhbet07000doifycggn3vqa" class="collapse in" role="tabpanel"
-       aria-labelledby="heading-ckdhbet07000doifycggn3vqa">
+  <div id="collapse-ckdjmzblz000j5bfy3dhlawo7" class="collapse in" role="tabpanel"
+       aria-labelledby="heading-ckdjmzblz000j5bfy3dhlawo7">
     
     
     
@@ -275,6 +287,42 @@
       
         <a href="/2020/08/05/openfalcon%E6%8A%A5%E8%AD%A6%E7%AD%96%E7%95%A5%E4%B8%ADdiff%E5%92%8Cpdiff%E5%AF%B9%E6%AF%94/" class="list-group-item list-group-item-action">
           <span class="category-post">openfalcon报警策略中diff和pdiff对比</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    <div class="category row">
+      <a
+        class="category-item collapsed list-group-item category-item-action col-10 col-md-11"
+        id="heading-ckdjmzbm1000s5bfy9r5r3j4z" role="tab" data-toggle="collapse" href="#collapse-ckdjmzbm1000s5bfy9r5r3j4z"
+        aria-expanded="false"
+      >
+        kubernetes
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      <a href="/categories/kubernetes/" class="category-count col-2 col-md-1">
+        <i class="iconfont icon-articles"></i>
+        <span>1</span>
+      </a>
+      <div class="category-collapse">
+        
+          
+  <div id="collapse-ckdjmzbm1000s5bfy9r5r3j4z" class="collapse in" role="tabpanel"
+       aria-labelledby="heading-ckdjmzbm1000s5bfy9r5r3j4z">
+    
+    
+    
+      
+      
+        <a href="/2020/08/06/%E9%98%BF%E9%87%8C%E4%BA%91%E5%AE%B9%E5%99%A8%E5%B9%B3%E5%8F%B0%E8%BF%90%E7%BB%B4-kubectl%E5%B7%A5%E5%85%B7%E9%9B%86/" class="list-group-item list-group-item-action">
+          <span class="category-post">k8s工具集</span>
         </a>
       
     
@@ -435,6 +483,56 @@
 
 
 
+
+  
+  
+    <script type="text/javascript">
+      //定义获取词语下标
+      var a_idx = 0;
+      jQuery(document).ready(function ($) {
+        //点击body时触发事件
+        $("body").click(function (e) {
+          //需要显示的词语
+          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
+          //设置词语给span标签
+          var $i = $("<span/>").text(a[a_idx]);
+          //下标等于原来下标+1  余 词语总数
+          a_idx = (a_idx + 1) % a.length;
+          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
+          //获取x和y的指针坐标
+          var x = e.pageX, y = e.pageY;
+          //在鼠标的指针的位置给$i定义的span标签添加css样式
+          $i.css({
+            "z-index": 999,
+            "top": y - 20,
+            "left": x,
+            "position": "absolute",
+            "font-weight": "bold",
+            "color": rand_color()
+          });
+          // 随机颜色
+          function rand_color() {
+            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+          }
+          //在body添加这个标签
+          $("body").append($i);
+          //animate() 方法执行 CSS 属性集的自定义动画。
+          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
+          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
+          $i.animate({
+            //将原来的位置向上移动180
+            "top": y - 180,
+            "opacity": 0
+            //1500动画的速度
+          }, 1500, function () {
+            //时间到了自动删除
+            $i.remove();
+          });
+        });
+      })
+      ;
+    </script>
+  
 
 
 

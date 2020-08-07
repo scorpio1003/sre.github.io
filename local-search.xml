@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>k8s工具集</title>
+    <link href="/2020/08/06/%E9%98%BF%E9%87%8C%E4%BA%91%E5%AE%B9%E5%99%A8%E5%B9%B3%E5%8F%B0%E8%BF%90%E7%BB%B4-kubectl%E5%B7%A5%E5%85%B7%E9%9B%86/"/>
+    <url>/2020/08/06/%E9%98%BF%E9%87%8C%E4%BA%91%E5%AE%B9%E5%99%A8%E5%B9%B3%E5%8F%B0%E8%BF%90%E7%BB%B4-kubectl%E5%B7%A5%E5%85%B7%E9%9B%86/</url>
+    
+    <content type="html"><![CDATA[<h6 id="集群切换、命名空间切换工具kubectlx-kubens"><a href="#集群切换、命名空间切换工具kubectlx-kubens" class="headerlink" title="集群切换、命名空间切换工具kubectlx, kubens"></a>集群切换、命名空间切换工具kubectlx, kubens</h6><pre><code class="hljs awk">https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/ahmetb/</span>kubectx</code></pre><h6 id="Kubectl短命令集"><a href="#Kubectl短命令集" class="headerlink" title="Kubectl短命令集"></a>Kubectl短命令集</h6><pre><code class="hljs awk">https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/ahmetb/</span>kubectl-aliases</code></pre><h6 id="命令行展示Kubernetes的集群名称和NS名称"><a href="#命令行展示Kubernetes的集群名称和NS名称" class="headerlink" title="命令行展示Kubernetes的集群名称和NS名称"></a>命令行展示Kubernetes的集群名称和NS名称</h6><pre><code class="hljs awk">https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/jonmosco/</span>kube-ps1</code></pre><h6 id="K8S资源跟踪工具kubespy"><a href="#K8S资源跟踪工具kubespy" class="headerlink" title="K8S资源跟踪工具kubespy"></a>K8S资源跟踪工具kubespy</h6><pre><code class="hljs awk">https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/pulumi/</span>kubespy</code></pre><h6 id="Kubectl-插件管理工具-krew"><a href="#Kubectl-插件管理工具-krew" class="headerlink" title="Kubectl 插件管理工具 krew"></a>Kubectl 插件管理工具 krew</h6><pre><code class="hljs awk">https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/GoogleContainerTools/</span>krew</code></pre><h6 id="同时查看多个POD，或者一个pod中多个容器的log-stern"><a href="#同时查看多个POD，或者一个pod中多个容器的log-stern" class="headerlink" title="同时查看多个POD，或者一个pod中多个容器的log: stern"></a>同时查看多个POD，或者一个pod中多个容器的log: stern</h6><pre><code class="hljs awk">https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/wercker/</span>stern</code></pre><h6 id="Docker-Image分析工具-dive"><a href="#Docker-Image分析工具-dive" class="headerlink" title="Docker Image分析工具: dive"></a>Docker Image分析工具: dive</h6><pre><code class="hljs awk">https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/wagoodman/</span>dive</code></pre><h6 id="YAML编辑工具vscode"><a href="#YAML编辑工具vscode" class="headerlink" title="YAML编辑工具vscode"></a>YAML编辑工具vscode</h6><pre><code class="hljs awk">https:<span class="hljs-regexp">//</span>code.visualstudio.com/</code></pre><h6 id="Vscode编辑yaml的扩展插件"><a href="#Vscode编辑yaml的扩展插件" class="headerlink" title="Vscode编辑yaml的扩展插件"></a>Vscode编辑yaml的扩展插件</h6><pre><code class="hljs vim">http<span class="hljs-variable">s:</span>//marketplace.visualstudio.<span class="hljs-keyword">com</span>/<span class="hljs-built_in">items</span>?itemNam <span class="hljs-keyword">e</span>=redhat.vscode-yaml</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>kubernetes</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>docker</tag>
+      
+      <tag>k8s</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>kafka运维常用命令</title>
     <link href="/2020/08/05/kafka%E8%BF%90%E7%BB%B4%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
     <url>/2020/08/05/kafka%E8%BF%90%E7%BB%B4%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
@@ -33,7 +60,7 @@
     <link href="/2020/08/05/lsyncd%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5%E7%A5%9E%E5%99%A8/"/>
     <url>/2020/08/05/lsyncd%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5%E7%A5%9E%E5%99%A8/</url>
     
-    <content type="html"><![CDATA[<h6 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h6><pre><code class="hljs routeros">apt-<span class="hljs-builtin-name">get</span> install lsyncd</code></pre><h6 id="配置文件详解-cat-etc-lsyncd-lsyncd-lua"><a href="#配置文件详解-cat-etc-lsyncd-lsyncd-lua" class="headerlink" title="配置文件详解 cat /etc/lsyncd/lsyncd.lua"></a>配置文件详解 cat /etc/lsyncd/lsyncd.lua</h6><pre><code class="hljs nix">settings  &#123;    <span class="hljs-attr">logfile</span> = <span class="hljs-string">&quot;/var/log/lsyncd/lsyncd.log&quot;</span>, --定义日志文件    <span class="hljs-attr">statusFile</span> = <span class="hljs-string">&quot;/var/log/lsyncd/lsyncd.status&quot;</span>, --定义状态文件    <span class="hljs-attr">maxProcesses</span> = <span class="hljs-number">1</span> -- 同步进程的最大个数。假如同时有<span class="hljs-number">20</span>个文件需要同步，而<span class="hljs-attr">maxProcesses</span> = <span class="hljs-number">8</span>，则最大能看到有<span class="hljs-number">8</span>个rysnc进程&#125;sync &#123;        default.rsyncssh, --同步到远程主机目录，rsync的ssh模式，需要使用key来认证        <span class="hljs-attr">source</span> = <span class="hljs-string">&quot;/etc/nginx&quot;</span>, -- 同步的源目录，使用绝对路径        <span class="hljs-attr">host</span> = <span class="hljs-string">&quot;10.6.6.6&quot;</span>,        <span class="hljs-attr">targetdir</span> = <span class="hljs-string">&quot;/etc/nginx&quot;</span>, -- 定义目标目录        <span class="hljs-attr">init</span> = <span class="hljs-literal">false</span>, --这是一个优化选项，当<span class="hljs-attr">init</span> = <span class="hljs-literal">false</span>，只同步进程启动以后发生改动事件的文件，原有的目录即使有差异也不会同步。默认是<span class="hljs-literal">true</span>        <span class="hljs-attr">delay</span> = <span class="hljs-number">0</span>,<span class="hljs-attr">rsync</span>  = &#123;        <span class="hljs-attr">binary</span>    = <span class="hljs-string">&quot;/usr/bin/rsync&quot;</span>,        <span class="hljs-attr">archive</span>   = <span class="hljs-literal">true</span>,        <span class="hljs-attr">compress</span>  = <span class="hljs-literal">true</span>, --压缩传输默认为<span class="hljs-literal">true</span>。在带宽与cpu负载之间权衡，本地目录同步可以考虑把它设为<span class="hljs-literal">false</span>        <span class="hljs-attr">verbose</span>   = <span class="hljs-literal">true</span>&#125;, <span class="hljs-attr">ssh</span>   = &#123;        <span class="hljs-attr">port</span>  = <span class="hljs-number">22</span> <span class="hljs-comment">#ssh端口</span>         &#125;&#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<h6 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h6><pre><code class="hljs routeros">apt-<span class="hljs-builtin-name">get</span> install lsyncd</code></pre><h6 id="配置文件详解-cat-etc-lsyncd-lsyncd-lua"><a href="#配置文件详解-cat-etc-lsyncd-lsyncd-lua" class="headerlink" title="配置文件详解 cat /etc/lsyncd/lsyncd.lua"></a>配置文件详解 cat /etc/lsyncd/lsyncd.lua</h6><pre><code class="hljs nix">settings  &#123;    <span class="hljs-attr">logfile</span> = <span class="hljs-string">&quot;/var/log/lsyncd/lsyncd.log&quot;</span>, --定义日志文件    <span class="hljs-attr">statusFile</span> = <span class="hljs-string">&quot;/var/log/lsyncd/lsyncd.status&quot;</span>, --定义状态文件    <span class="hljs-attr">maxProcesses</span> = <span class="hljs-number">1</span> -- 同步进程的最大个数。假如同时有<span class="hljs-number">20</span>个文件需要同步，而<span class="hljs-attr">maxProcesses</span> = <span class="hljs-number">8</span>，则最大能看到有<span class="hljs-number">8</span>个rysnc进程&#125;sync &#123;        default.rsyncssh, --同步到远程主机目录，rsync的ssh模式，需要使用key来认证        <span class="hljs-attr">source</span> = <span class="hljs-string">&quot;/etc/nginx&quot;</span>, -- 同步的源目录，使用绝对路径        <span class="hljs-attr">host</span> = <span class="hljs-string">&quot;10.6.6.6&quot;</span>,        <span class="hljs-attr">targetdir</span> = <span class="hljs-string">&quot;/etc/nginx&quot;</span>, -- 定义目标目录        <span class="hljs-attr">init</span> = <span class="hljs-literal">false</span>, --这是一个优化选项，当<span class="hljs-attr">init</span> = <span class="hljs-literal">false</span>，只同步进程启动以后发生改动事件的文件，原有的目录即使有差异也不会同步。默认是<span class="hljs-literal">true</span>        <span class="hljs-attr">delay</span> = <span class="hljs-number">0</span>,<span class="hljs-attr">rsync</span>  = &#123;        <span class="hljs-attr">binary</span>    = <span class="hljs-string">&quot;/usr/bin/rsync&quot;</span>,        <span class="hljs-attr">archive</span>   = <span class="hljs-literal">true</span>,        <span class="hljs-attr">compress</span>  = <span class="hljs-literal">true</span>, --压缩传输默认为<span class="hljs-literal">true</span>。在带宽与cpu负载之间权衡，本地目录同步可以考虑把它设为<span class="hljs-literal">false</span>        <span class="hljs-attr">verbose</span>   = <span class="hljs-literal">true</span>&#125;, <span class="hljs-attr">ssh</span>   = &#123;        <span class="hljs-attr">port</span>  = <span class="hljs-number">22</span> <span class="hljs-comment">#ssh端口,目标机器需要做sshmian mi</span>         &#125;&#125;</code></pre>]]></content>
     
     
     <categories>
@@ -173,19 +200,6 @@
       <tag>tcpdump</tag>
       
     </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="/2020/08/05/hello-world/"/>
-    <url>/2020/08/05/hello-world/</url>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span></code></pre><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="hljs bash">$ hexo server</code></pre><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="hljs bash">$ hexo generate</code></pre><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="hljs bash">$ hexo deploy</code></pre><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
-    
-    
     
   </entry>
   
