@@ -183,7 +183,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      542 字
+      546 字
     </span>
   
 
@@ -229,9 +229,8 @@
               <h6 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h6> <pre><code class="hljs angelscript">系统： ubuntu18<span class="hljs-number">.04</span>
 mysql：<span class="hljs-number">5.7</span><span class="hljs-number">.31</span></code></pre>
 
-<p> 正常情况下，修改存储目录只需要拷贝数据和授权即可，但是发现就是不行(各种权限问题等)，后来发现是apparmor导致的，这个是ubuntu系统默认开启的。<br> <pre><code class="hljs sql"> 2020-08-10T08:10:07.460723Z 0 [Warning] Can&#x27;t <span class="hljs-keyword">create</span> <span class="hljs-keyword">test</span> <span class="hljs-keyword">file</span> /<span class="hljs-keyword">data</span>/mysql_data/<span class="hljs-number">145.</span><span class="hljs-keyword">lower</span>-<span class="hljs-keyword">test</span>
-mysqld: <span class="hljs-keyword">File</span> <span class="hljs-string">&#x27;/data/mysql_bin_log/mysql-bin.index&#x27;</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">found</span> (Errcode: <span class="hljs-number">13</span> - Permission denied)
- </code></pre></p>
+<p> 正常情况下，修改存储目录只需要拷贝数据和授权即可，但是发现就是不行(各种权限问题等)，后来发现是apparmor导致的，这个是ubuntu系统默认开启的。<br> &lt;!–hexoPostRenderEscape:<pre><code class="hljs sql">2020-08-10T08:10:07.460723Z 0 [Warning] Can&#x27;t <span class="hljs-keyword">create</span> <span class="hljs-keyword">test</span> <span class="hljs-keyword">file</span> /<span class="hljs-keyword">data</span>/mysql_data/<span class="hljs-number">145.</span><span class="hljs-keyword">lower</span>-<span class="hljs-keyword">test</span></p>
+<p>mysqld: <span class="hljs-keyword">File</span> <span class="hljs-string">&#x27;/data/mysql_bin_log/mysql-bin.index&#x27;</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">found</span> (Errcode: <span class="hljs-number">13</span> - Permission denied)<br> </code></pre>:hexoPostRenderEscape–&gt;</p>
  <pre><code class="hljs angelscript">AppArmor是一个高效和易于使用的Linux系统安全应用程序。AppArmor对操作系统和应用程序所受到的威胁进行从内到外的保护，甚至是未被发现的<span class="hljs-number">0</span>day漏洞和未知的应用程序漏洞所导致的攻击。AppArmor安全策略可以完全定义个别应用程序可以访问的系统资源与各自的特权。AppArmor包含大量的默认策略，它将先进的静态分析和基于学习的工具结合起来，AppArmor甚至可以使非常复杂的应用可以使用在很短的时间内应用成功。</code></pre>
 <h6 id="apparmor的工作模式"><a href="#apparmor的工作模式" class="headerlink" title="apparmor的工作模式"></a>apparmor的工作模式</h6><pre><code class="hljs properties"><span class="hljs-attr">apparmor有两种工作模式，enforcement和complain</span>
 <span class="hljs-attr">enforcement</span> <span class="hljs-string">模式下，应用将严格遵循配置文件里列出的限制条件，未被授权的访问将被拒绝。</span>
