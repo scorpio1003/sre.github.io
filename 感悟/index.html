@@ -17,10 +17,20 @@
   <meta name="description" content="Sre666">
   <meta name="author" content="Scorpio">
   <meta name="keywords" content="">
-  <title>Tags - cpu - Sre666</title>
+  <title> 感悟 - Sre666</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -43,7 +53,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 60vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -149,7 +159,7 @@
 </nav>
 
     <div class="banner intro-2" id="background" parallax=true
-         style="background: url('/img/tags.jpg') no-repeat center center;
+         style="background: url('/img/about.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -178,22 +188,10 @@
               <div class="col-12 col-md-10 m-auto">
                 
 
-<div class="list-group">
-  <p class="h4">1 posts in total.</p>
-  <hr>
-  
-    
-      
-      <p class="h5">2020</p>
-    
-    <a href="/2020/08/05/sysbench-%E6%B5%8B%E8%AF%95-CPU%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E8%AF%A6%E8%A7%A3/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">sysbench 测试 CPU性能测试详解</span>
-      <time style="float: right;">08-05</time>
-    </a>
-  
+<div class="page-content">
+  <p>我这前半生。。。。。。</p>
+
 </div>
-
-
 
               </div>
             </div>
@@ -310,7 +308,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Tag - cpu&nbsp;",
+        " 感悟&nbsp;",
       ],
       cursorChar: "",
       typeSpeed: 70,
@@ -324,6 +322,21 @@
   </script>
 
 
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
 
 
 
