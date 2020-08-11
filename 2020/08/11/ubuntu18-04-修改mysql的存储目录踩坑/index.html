@@ -183,7 +183,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      542 字
+      425 字
     </span>
   
 
@@ -193,7 +193,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      5
        分钟
     </span>
   
@@ -233,10 +233,8 @@ mysql：<span class="hljs-number">5.7</span><span class="hljs-number">.31</span>
 
 mysqld: <span class="hljs-keyword">File</span> <span class="hljs-string">&#x27;/data/mysql_bin_log/mysql-bin.index&#x27;</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">found</span> (Errcode: <span class="hljs-number">13</span> - Permission denied)
  </code></pre>
-
-
-
- <pre><code class="hljs angelscript">AppArmor是一个高效和易于使用的Linux系统安全应用程序。AppArmor对操作系统和应用程序所受到的威胁进行从内到外的保护，甚至是未被发现的<span class="hljs-number">0</span>day漏洞和未知的应用程序漏洞所导致的攻击。AppArmor安全策略可以完全定义个别应用程序可以访问的系统资源与各自的特权。AppArmor包含大量的默认策略，它将先进的静态分析和基于学习的工具结合起来，AppArmor甚至可以使非常复杂的应用可以使用在很短的时间内应用成功。</code></pre>
+<h6 id="apparmor"><a href="#apparmor" class="headerlink" title="apparmor"></a>apparmor</h6> <pre><code class="hljs plain">AppArmor是一个高效和易于使用的Linux系统安全应用程序
+AppArmor对操作系统和应用程序所受到的威胁进行从内到外的保护</code></pre>
 <h6 id="apparmor的工作模式"><a href="#apparmor的工作模式" class="headerlink" title="apparmor的工作模式"></a>apparmor的工作模式</h6><pre><code class="hljs properties"><span class="hljs-attr">apparmor有两种工作模式，enforcement和complain</span>
 <span class="hljs-attr">enforcement</span> <span class="hljs-string">模式下，应用将严格遵循配置文件里列出的限制条件，未被授权的访问将被拒绝。</span>
 <span class="hljs-attr">complain模式下，如果应用违反了配置文件里的限制条件，apparmor只是对程序的行为进行记录，不会拒绝访问。</span></code></pre>
