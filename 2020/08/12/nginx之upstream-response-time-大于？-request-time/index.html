@@ -17,7 +17,7 @@
   <meta name="description" content="Sre666">
   <meta name="author" content="Scorpio">
   <meta name="keywords" content="">
-  <title>ubuntu18.04 修改mysql的存储目录踩坑 - Sre666</title>
+  <title>nginx之upstream_response_time 大于 $request_time？ - Sre666</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -172,8 +172,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-08-11 12:58" pubdate>
-      August 11, 2020 pm
+    <time datetime="2020-08-12 15:45" pubdate>
+      August 12, 2020 pm
     </time>
   </div>
 
@@ -183,7 +183,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      425 字
+      243 字
     </span>
   
 
@@ -193,7 +193,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      3
        分钟
     </span>
   
@@ -223,53 +223,19 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">ubuntu18.04 修改mysql的存储目录踩坑</h1>
+            <h1 style="display: none">nginx之upstream_response_time 大于 $request_time？</h1>
             
             <div class="markdown-body" id="post-body">
-              <h6 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h6> <pre><code class="hljs angelscript">系统： ubuntu18<span class="hljs-number">.04</span>
-mysql：<span class="hljs-number">5.7</span><span class="hljs-number">.31</span></code></pre>
-<p>正常情况下，修改存储目录只需要拷贝数据和授权即可，但是发现就是不行(各种权限问题等)，后来发现是apparmor导致的，这个是ubuntu系统默认开启的。</p>
-<pre><code class="hljs sql">2020-08-10T08:10:07.460723Z 0 [Warning] Can&#x27;t <span class="hljs-keyword">create</span> <span class="hljs-keyword">test</span> <span class="hljs-keyword">file</span> /<span class="hljs-keyword">data</span>/mysql_data/<span class="hljs-number">145.</span><span class="hljs-keyword">lower</span>-<span class="hljs-keyword">test</span>
+              <h6 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h6><pre><code class="hljs plain">从nginx日志里面发现request_time小于upstream_responser_time</code></pre>
 
-mysqld: <span class="hljs-keyword">File</span> <span class="hljs-string">&#x27;/data/mysql_bin_log/mysql-bin.index&#x27;</span> <span class="hljs-keyword">not</span> <span class="hljs-keyword">found</span> (Errcode: <span class="hljs-number">13</span> - Permission denied)
- </code></pre>
-<h6 id="apparmor"><a href="#apparmor" class="headerlink" title="apparmor"></a>apparmor</h6> <pre><code class="hljs plain">AppArmor是一个高效和易于使用的Linux系统安全应用程序
-AppArmor对操作系统和应用程序所受到的威胁进行从内到外的保护</code></pre>
-<h6 id="apparmor的工作模式"><a href="#apparmor的工作模式" class="headerlink" title="apparmor的工作模式"></a>apparmor的工作模式</h6><pre><code class="hljs properties"><span class="hljs-attr">apparmor有两种工作模式，enforcement和complain</span>
-<span class="hljs-attr">enforcement</span> <span class="hljs-string">模式下，应用将严格遵循配置文件里列出的限制条件，未被授权的访问将被拒绝。</span>
-<span class="hljs-attr">complain模式下，如果应用违反了配置文件里的限制条件，apparmor只是对程序的行为进行记录，不会拒绝访问。</span></code></pre>
+<p><img src="/images/pasted-2.png" srcset="/img/loading.gif" alt="upload successful"></p>
+<h6 id="从openresty查看一个大神的说法："><a href="#从openresty查看一个大神的说法：" class="headerlink" title="从openresty查看一个大神的说法："></a>从openresty查看一个大神的说法：</h6><h6 id="总的来说就是两个使用的是不同的变量缓存"><a href="#总的来说就是两个使用的是不同的变量缓存" class="headerlink" title="总的来说就是两个使用的是不同的变量缓存"></a>总的来说就是两个使用的是不同的变量缓存</h6><pre><code class="hljs xl">用<span class="hljs-function"><span class="hljs-title">systemtap</span>尝试追踪nginx时间缓存的更新,发现有可能时nginx对时间做了缓存,导致读写不一致.计算upstream_response_time是用到src/core/ngx_times.c 中定义的ngx_current_msec,而计算request_time 是使用的是ngx_cached_time,当ngx_current_msec更新到最新值,但是ngx_cached_time未更新时,就可能导致 ngx_current_time 与 upstream-&gt;</span><span class="hljs-function"><span class="hljs-title">start_time</span> 的差值大于 ngx_cached_time-&gt;</span><span class="hljs-function"><span class="hljs-title">sec</span> - request-&gt;</span><span class="hljs-function"><span class="hljs-title">start_sec</span> * 1000 + ngx_cached_time-&gt;</span><span class="hljs-function"><span class="hljs-title">msec</span> - request-&gt;</span>start_msec的值. 我在追踪过程里面记录到了一次ngx_cached_time与ngx_current_time在计算upstream_response_time,request_time时,差值为<span class="hljs-number">11</span>ms的情况,所以最后upstream_response_time&gt;request_time也的确是有可能的.如果追求时间精确可以尝试设置time_resolution, 可以提供毫秒级的精确度.</code></pre>
 
 
-<h6 id="使用statua命令查看apparmor的运行状态"><a href="#使用statua命令查看apparmor的运行状态" class="headerlink" title="使用statua命令查看apparmor的运行状态"></a>使用statua命令查看apparmor的运行状态</h6><pre><code class="hljs gradle">sudo apparmor_status
+<h6 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h6><pre><code class="hljs apache"><span class="hljs-attribute">https</span>://stackoverflow.com/questions/<span class="hljs-number">53978695</span>/how-can-request-time-be-less-than-upstream-response-time-in-nginx
 
-apparmor module is loaded.
-<span class="hljs-number">13</span> profiles are loaded.
-<span class="hljs-number">13</span> profiles are in enforce mode.
-   <span class="hljs-regexp">/sbin/</span>dhclient
-   <span class="hljs-regexp">/usr/</span>bin/man
-   <span class="hljs-regexp">/usr/</span>lib<span class="hljs-regexp">/NetworkManager/</span>nm-dhcp-client.action
-   <span class="hljs-regexp">/usr/</span>lib<span class="hljs-regexp">/NetworkManager/</span>nm-dhcp-helper
-   <span class="hljs-regexp">/usr/</span>lib<span class="hljs-regexp">/connman/</span>scripts/dhclient-script
-   <span class="hljs-regexp">/usr/</span>sbin/chronyd
-   <span class="hljs-regexp">/usr/</span>sbin/mysqld
-   <span class="hljs-regexp">/usr/</span>sbin/ntpd
-   <span class="hljs-regexp">/usr/</span>sbin/slapd
-   <span class="hljs-regexp">/usr/</span>sbin/tcpdump
-   docker-<span class="hljs-keyword">default</span>
-   man_filter
-   man_groff
-<span class="hljs-number">0</span> profiles are in complain mode.
-<span class="hljs-number">3</span> processes have profiles defined.
-<span class="hljs-number">3</span> processes are in enforce mode.
-   <span class="hljs-regexp">/usr/</span>sbin/chronyd (<span class="hljs-number">568</span>)
-   <span class="hljs-regexp">/usr/</span>sbin/mysqld (<span class="hljs-number">4136</span>)
-   <span class="hljs-regexp">/usr/</span>sbin/slapd (<span class="hljs-number">12073</span>)
-<span class="hljs-number">0</span> processes are in complain mode.
-<span class="hljs-number">0</span> processes are unconfined but have a profile defined.</code></pre>
-<h6 id="由上述发现mysql是enforce状态的，这就是为什么你修改目录权限啥都不生效的原因"><a href="#由上述发现mysql是enforce状态的，这就是为什么你修改目录权限啥都不生效的原因" class="headerlink" title="由上述发现mysql是enforce状态的，这就是为什么你修改目录权限啥都不生效的原因"></a>由上述发现mysql是enforce状态的，这就是为什么你修改目录权限啥都不生效的原因</h6><h6 id="安装方便操作apparmor的工具"><a href="#安装方便操作apparmor的工具" class="headerlink" title="安装方便操作apparmor的工具"></a>安装方便操作apparmor的工具</h6><p>sudo apt-get install  apparmor-utils</p>
-<h6 id="修改mysql为complain模式"><a href="#修改mysql为complain模式" class="headerlink" title="修改mysql为complain模式"></a>修改mysql为complain模式</h6><p>aa-complain  /usr/sbin/mysqld </p>
-<h6 id="重启apparmor"><a href="#重启apparmor" class="headerlink" title="重启apparmor"></a>重启apparmor</h6><p>/etc/init.d/apparmor restart</p>
-<p>再去启动mysql一切正常。。。。。。</p>
+<span class="hljs-attribute">https</span>://forum.openresty.us/d/<span class="hljs-number">4119</span>-<span class="hljs-number">86</span>e<span class="hljs-number">89</span>e<span class="hljs-number">3344</span>bc<span class="hljs-number">714</span>f<span class="hljs-number">1</span>f<span class="hljs-number">608</span>bc<span class="hljs-number">2</span>ad<span class="hljs-number">2</span>d<span class="hljs-number">86</span>f<span class="hljs-number">1</span>/<span class="hljs-number">12</span></code></pre>
+
 
             </div>
             <hr>
@@ -279,7 +245,7 @@ apparmor module is loaded.
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/mysql/">mysql</a>
+                      <a class="hover-with-bg" href="/categories/nginx/">nginx</a>
                     
                   </div>
                 
@@ -287,11 +253,7 @@ apparmor module is loaded.
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/mysql/">mysql</a>
-                    
-                      <a class="hover-with-bg" href="/tags/ubuntu/">ubuntu</a>
-                    
-                      <a class="hover-with-bg" href="/tags/apparmor/">apparmor</a>
+                      <a class="hover-with-bg" href="/tags/request-time/">request_time</a>
                     
                   </div>
                 
@@ -304,18 +266,12 @@ apparmor module is loaded.
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/08/12/docker%E7%BD%91%E7%BB%9C%E9%97%AE%E9%A2%98/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">docker请求时ip转换问题</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/08/06/%E9%98%BF%E9%87%8C%E4%BA%91%E5%AE%B9%E5%99%A8%E5%B9%B3%E5%8F%B0%E8%BF%90%E7%BB%B4-kubectl%E5%B7%A5%E5%85%B7%E9%9B%86/">
-                        <span class="hidden-mobile">k8s工具集</span>
+                      <a href="/2020/08/12/docker%E7%BD%91%E7%BB%9C%E9%97%AE%E9%A2%98/">
+                        <span class="hidden-mobile">docker请求时ip转换问题</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -487,7 +443,7 @@ apparmor module is loaded.
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "ubuntu18.04 修改mysql的存储目录踩坑&nbsp;",
+        "nginx之upstream_response_time 大于 $request_time？&nbsp;",
       ],
       cursorChar: "",
       typeSpeed: 70,

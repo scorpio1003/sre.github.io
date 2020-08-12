@@ -4,6 +4,50 @@
   
   
   <entry>
+    <title>nginx之upstream_response_time 大于 $request_time？</title>
+    <link href="/2020/08/12/nginx%E4%B9%8Bupstream-response-time-%E5%A4%A7%E4%BA%8E%EF%BC%9F-request-time/"/>
+    <url>/2020/08/12/nginx%E4%B9%8Bupstream-response-time-%E5%A4%A7%E4%BA%8E%EF%BC%9F-request-time/</url>
+    
+    <content type="html"><![CDATA[<h6 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h6><pre><code class="hljs plain">从nginx日志里面发现request_time小于upstream_responser_time</code></pre><p><img src="/images/pasted-2.png" alt="upload successful"></p><h6 id="从openresty查看一个大神的说法："><a href="#从openresty查看一个大神的说法：" class="headerlink" title="从openresty查看一个大神的说法："></a>从openresty查看一个大神的说法：</h6><h6 id="总的来说就是两个使用的是不同的变量缓存"><a href="#总的来说就是两个使用的是不同的变量缓存" class="headerlink" title="总的来说就是两个使用的是不同的变量缓存"></a>总的来说就是两个使用的是不同的变量缓存</h6><pre><code class="hljs xl">用<span class="hljs-function"><span class="hljs-title">systemtap</span>尝试追踪nginx时间缓存的更新,发现有可能时nginx对时间做了缓存,导致读写不一致.计算upstream_response_time是用到src/core/ngx_times.c 中定义的ngx_current_msec,而计算request_time 是使用的是ngx_cached_time,当ngx_current_msec更新到最新值,但是ngx_cached_time未更新时,就可能导致 ngx_current_time 与 upstream-&gt;</span><span class="hljs-function"><span class="hljs-title">start_time</span> 的差值大于 ngx_cached_time-&gt;</span><span class="hljs-function"><span class="hljs-title">sec</span> - request-&gt;</span><span class="hljs-function"><span class="hljs-title">start_sec</span> * 1000 + ngx_cached_time-&gt;</span><span class="hljs-function"><span class="hljs-title">msec</span> - request-&gt;</span>start_msec的值. 我在追踪过程里面记录到了一次ngx_cached_time与ngx_current_time在计算upstream_response_time,request_time时,差值为<span class="hljs-number">11</span>ms的情况,所以最后upstream_response_time&gt;request_time也的确是有可能的.如果追求时间精确可以尝试设置time_resolution, 可以提供毫秒级的精确度.</code></pre><h6 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h6><pre><code class="hljs apache"><span class="hljs-attribute">https</span>://stackoverflow.com/questions/<span class="hljs-number">53978695</span>/how-can-request-time-be-less-than-upstream-response-time-in-nginx<span class="hljs-attribute">https</span>://forum.openresty.us/d/<span class="hljs-number">4119</span>-<span class="hljs-number">86</span>e<span class="hljs-number">89</span>e<span class="hljs-number">3344</span>bc<span class="hljs-number">714</span>f<span class="hljs-number">1</span>f<span class="hljs-number">608</span>bc<span class="hljs-number">2</span>ad<span class="hljs-number">2</span>d<span class="hljs-number">86</span>f<span class="hljs-number">1</span>/<span class="hljs-number">12</span></code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>nginx</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>request_time</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>docker请求时ip转换问题</title>
+    <link href="/2020/08/12/docker%E7%BD%91%E7%BB%9C%E9%97%AE%E9%A2%98/"/>
+    <url>/2020/08/12/docker%E7%BD%91%E7%BB%9C%E9%97%AE%E9%A2%98/</url>
+    
+    <content type="html"><![CDATA[<h6 id="环境"><a href="#环境" class="headerlink" title="环境:"></a>环境:</h6><pre><code class="hljs accesslog"><span class="hljs-number">192.168.1.101</span> #是业务机器，跑的docker<span class="hljs-number">192.168.1.102</span> #跑的es，没有用docker</code></pre><h6 id="现象："><a href="#现象：" class="headerlink" title="现象："></a>现象：</h6><pre><code class="hljs angelscript">在<span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.102</span>上的执行ss -nat|grep <span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.101</span> 然后里面有随机端口， 然后他去<span class="hljs-number">101</span>上去过滤随机端口为啥找不到呢？</code></pre><h6 id="原因："><a href="#原因：" class="headerlink" title="原因："></a>原因：</h6><pre><code class="hljs angelscript">因为是桥接模式，docker的<span class="hljs-keyword">namespace</span>是隔离的，所以临时端口在<span class="hljs-symbol">101</span>上直接看不到的，得进容器里面才能看到 ，借助<span class="hljs-symbol">iptables</span>实现类似于<span class="hljs-symbol">snat</span> 转换了源地址</code></pre>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>docker</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>ubuntu18.04 修改mysql的存储目录踩坑</title>
     <link href="/2020/08/11/ubuntu18-04-%E4%BF%AE%E6%94%B9mysql%E7%9A%84%E5%AD%98%E5%82%A8%E7%9B%AE%E5%BD%95%E8%B8%A9%E5%9D%91/"/>
     <url>/2020/08/11/ubuntu18-04-%E4%BF%AE%E6%94%B9mysql%E7%9A%84%E5%AD%98%E5%82%A8%E7%9B%AE%E5%BD%95%E8%B8%A9%E5%9D%91/</url>

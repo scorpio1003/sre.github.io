@@ -17,7 +17,7 @@
   <meta name="description" content="Sre666">
   <meta name="author" content="Scorpio">
   <meta name="keywords" content="">
-  <title>Tags - Sre666</title>
+  <title>Archives - Sre666</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -43,7 +43,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 60vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -149,7 +149,7 @@
 </nav>
 
     <div class="banner intro-2" id="background" parallax=true
-         style="background: url('/img/tags.jpg') no-repeat center center;
+         style="background: url('/img/archives.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -178,9 +178,34 @@
               <div class="col-12 col-md-10 m-auto">
                 
 
-<div class="text-center tagcloud">
-  <a href="/tags/apparmor/" style="font-size: 15px; color: #bbe">apparmor</a> <a href="/tags/cpu/" style="font-size: 15px; color: #bbe">cpu</a> <a href="/tags/docker/" style="font-size: 30px; color: #337ab7">docker</a> <a href="/tags/io/" style="font-size: 15px; color: #bbe">io</a> <a href="/tags/k8s/" style="font-size: 15px; color: #bbe">k8s</a> <a href="/tags/kafka/" style="font-size: 15px; color: #bbe">kafka</a> <a href="/tags/lsyncd/" style="font-size: 15px; color: #bbe">lsyncd</a> <a href="/tags/mysql/" style="font-size: 15px; color: #bbe">mysql</a> <a href="/tags/openfalcon/" style="font-size: 30px; color: #337ab7">openfalcon</a> <a href="/tags/request-time/" style="font-size: 15px; color: #bbe">request_time</a> <a href="/tags/tcpdump/" style="font-size: 15px; color: #bbe">tcpdump</a> <a href="/tags/ubuntu/" style="font-size: 15px; color: #bbe">ubuntu</a>
+<div class="list-group">
+  <p class="h4">11 posts in total.</p>
+  <hr>
+  
+    
+      
+      <p class="h5">2020</p>
+    
+    <a href="/2020/08/05/tcpdump/" class="list-group-item list-group-item-action">
+      <span class="archive-post-title">tcpdump抓包</span>
+      <time style="float: right;">08-05</time>
+    </a>
+  
 </div>
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/archives/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
+      ele.href += '#board';
+    }
+  </script>
+
+
 
               </div>
             </div>
@@ -297,7 +322,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "标签&nbsp;",
+        "归档&nbsp;",
       ],
       cursorChar: "",
       typeSpeed: 70,
