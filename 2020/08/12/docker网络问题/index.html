@@ -231,7 +231,9 @@
 
 <h6 id="现象："><a href="#现象：" class="headerlink" title="现象："></a>现象：</h6><pre><code class="hljs angelscript">在<span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.102</span>上的执行ss -nat|grep <span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.101</span> 然后里面有随机端口， 然后他去<span class="hljs-number">101</span>上去过滤随机端口为啥找不到呢？</code></pre>
 
-<h6 id="原因："><a href="#原因：" class="headerlink" title="原因："></a>原因：</h6><pre><code class="hljs angelscript">因为是桥接模式，docker的<span class="hljs-keyword">namespace</span>是隔离的，所以临时端口在<span class="hljs-symbol">101</span>上直接看不到的，得进容器里面才能看到 ，借助<span class="hljs-symbol">iptables</span>实现类似于<span class="hljs-symbol">snat</span> 转换了源地址</code></pre>
+<h6 id="原因："><a href="#原因：" class="headerlink" title="原因："></a>原因：</h6><pre><code class="hljs angelscript">因为是桥接模式，docker的<span class="hljs-keyword">namespace</span>是隔离的，所以临时端口在<span class="hljs-symbol">101</span>
+上直接看不到的，得进容器里面才能看到 ，借助<span class="hljs-symbol">iptables</span>实现类似于<span class="hljs-symbol">snat</span> 
+转换了源地址</code></pre>
             </div>
             <hr>
             <div>

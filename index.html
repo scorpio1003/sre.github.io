@@ -200,7 +200,8 @@
           现象从nginx日志里面发现request_time小于upstream_responser_time
 
 
-从openresty查看一个大神的说法：总的来说就是两个使用的是不同的变量缓存用systemtap尝试追踪nginx时间缓存的更新,发现有可能时nginx对时间做了缓存,导致读写不一致.计算upstream_response_time是用到src/core/ngx_times.c 中定义的n
+从openresty查看一个大神的说法：总的来说就是两个使用的是不同的变量缓存用systemtap尝试追踪nginx时间缓存的更新,发现有可能时nginx对时间做了缓存,导致读写不一致.计算upstream_response_time是用到
+src/core/ngx_times.c 中定义的
         </a>
       </p>
 
@@ -252,7 +253,8 @@
 
 现象：在192.168.1.102上的执行ss -nat|grep 192.168.1.101 然后里面有随机端口， 然后他去101上去过滤随机端口为啥找不到呢？
 
-原因：因为是桥接模式，docker的namespace是隔离的，所以临时端口在101上直接看不到的，得进容
+原因：因为是桥接模式，docker的namespace是隔离的，所以临时端口在101
+上直接看不到的，得进
         </a>
       </p>
 
