@@ -17,7 +17,7 @@
   <meta name="description" content="Sre666">
   <meta name="author" content="Scorpio">
   <meta name="keywords" content="">
-  <title>nginx之upstream_response_time 大于 $request_time？ - Sre666</title>
+  <title>Ubuntu在vncviewer下Tab键失效等问题 - Sre666</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -172,8 +172,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-08-12 15:45" pubdate>
-      August 12, 2020 pm
+    <time datetime="2020-08-14 11:52" pubdate>
+      August 14, 2020 am
     </time>
   </div>
 
@@ -183,7 +183,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      244 字
+      88 字
     </span>
   
 
@@ -193,7 +193,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      1
        分钟
     </span>
   
@@ -223,20 +223,18 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">nginx之upstream_response_time 大于 $request_time？</h1>
+            <h1 style="display: none">Ubuntu在vncviewer下Tab键失效等问题</h1>
             
             <div class="markdown-body" id="post-body">
-              <h6 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h6><pre><code class="hljs plain">从nginx日志里面发现request_time小于upstream_responser_time</code></pre>
+              <p> </p>
+<h6 id="Ubuntu在vncviewer下Tab键失效"><a href="#Ubuntu在vncviewer下Tab键失效" class="headerlink" title="Ubuntu在vncviewer下Tab键失效"></a>Ubuntu在vncviewer下Tab键失效</h6> <pre><code class="hljs awk">执行该命令 
+sudo xfconf-query -c xfce4-keyboard-shortcuts -p <span class="hljs-regexp">/xfwm4/</span>custom/<span class="hljs-string">&#x27;&lt;&#x27;</span>Supe<span class="hljs-string">r&#x27;&gt;&#x27;</span>Tab -r</code></pre>
 
-<p><img src="/images/pasted-2.png" srcset="/img/loading.gif" alt="upload successful"></p>
-<h6 id="从openresty查看一个大神的说法："><a href="#从openresty查看一个大神的说法：" class="headerlink" title="从openresty查看一个大神的说法："></a>从openresty查看一个大神的说法：</h6><h6 id="总的来说就是两个使用的是不同的变量缓存"><a href="#总的来说就是两个使用的是不同的变量缓存" class="headerlink" title="总的来说就是两个使用的是不同的变量缓存"></a>总的来说就是两个使用的是不同的变量缓存</h6><pre><code class="hljs xl">用systemtap尝试追踪nginx时间缓存的更新,发现有可能时nginx对时间做了缓存,导致读写不一致.计算upstream_response_time是用到
-src/core/ngx_times.c 中定义的ngx_current_msec,而计算request_time 是使用的是ngx_cached_time,当ngx_current_msec更新到最新值,但是ngx_cached_time未更新时,就可能导致 ngx_current_time 与
-<span class="hljs-function"><span class="hljs-title">upstream</span>-&gt;</span><span class="hljs-function"><span class="hljs-title">start_time</span> 的差值大于 ngx_cached_time-&gt;</span><span class="hljs-function"><span class="hljs-title">sec</span> - request-&gt;</span><span class="hljs-function"><span class="hljs-title">start_sec</span> * 1000 + ngx_cached_time-&gt;</span><span class="hljs-function"><span class="hljs-title">msec</span> - request-&gt;</span>start_msec的值. 我在追踪过程里面记录到了一次ngx_cached_time与ngx_current_time在计算upstream_response_time,request_time时,差值为<span class="hljs-number">11</span>ms的情况,所以最后upstream_response_time&gt;request_time也的确是有可能的.如果追求时间精确可以尝试设置time_resolution, 可以提供毫秒级的精确度.</code></pre>
+<h6 id="还原默认终端（慎重操作）"><a href="#还原默认终端（慎重操作）" class="headerlink" title="还原默认终端（慎重操作）"></a>还原默认终端（慎重操作）</h6><pre><code class="hljs maxima"> 若安装了x-<span class="hljs-built_in">terminal</span>-emulator或者其他终端，需要还原时候执行以下命令，根据需要选择相应的终端（默认为gnome-<span class="hljs-built_in">terminal</span>）
+ sudo update-alternatives --config x-<span class="hljs-built_in">terminal</span>-emulator</code></pre>
 
+<p><img src="/images/pasted-3.png" srcset="/img/loading.gif" alt="upload successful"></p>
 
-<h6 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h6><pre><code class="hljs apache"><span class="hljs-attribute">https</span>://stackoverflow.com/questions/<span class="hljs-number">53978695</span>/how-can-request-time-be-less-than-upstream-response-time-in-nginx
-
-<span class="hljs-attribute">https</span>://forum.openresty.us/d/<span class="hljs-number">4119</span>-<span class="hljs-number">86</span>e<span class="hljs-number">89</span>e<span class="hljs-number">3344</span>bc<span class="hljs-number">714</span>f<span class="hljs-number">1</span>f<span class="hljs-number">608</span>bc<span class="hljs-number">2</span>ad<span class="hljs-number">2</span>d<span class="hljs-number">86</span>f<span class="hljs-number">1</span>/<span class="hljs-number">12</span></code></pre>
             </div>
             <hr>
             <div>
@@ -245,7 +243,7 @@ src/core/ngx_times.c 中定义的ngx_current_msec,而计算request_time 是使�
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/nginx/">nginx</a>
+                      <a class="hover-with-bg" href="/categories/Linux/">Linux</a>
                     
                   </div>
                 
@@ -253,7 +251,7 @@ src/core/ngx_times.c 中定义的ngx_current_msec,而计算request_time 是使�
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/request-time/">request_time</a>
+                      <a class="hover-with-bg" href="/tags/vnc/">vnc</a>
                     
                   </div>
                 
@@ -266,18 +264,12 @@ src/core/ngx_times.c 中定义的ngx_current_msec,而计算request_time 是使�
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/08/14/vnc%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Ubuntu在vncviewer下Tab键失效等问题</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/08/12/docker%E7%BD%91%E7%BB%9C%E9%97%AE%E9%A2%98/">
-                        <span class="hidden-mobile">docker请求时ip转换问题</span>
+                      <a href="/2020/08/12/nginx%E4%B9%8Bupstream-response-time-%E5%A4%A7%E4%BA%8E%EF%BC%9F-request-time/">
+                        <span class="hidden-mobile">nginx之upstream_response_time 大于 $request_time？</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -449,7 +441,7 @@ src/core/ngx_times.c 中定义的ngx_current_msec,而计算request_time 是使�
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "nginx之upstream_response_time 大于 $request_time？&nbsp;",
+        "Ubuntu在vncviewer下Tab键失效等问题&nbsp;",
       ],
       cursorChar: "",
       typeSpeed: 70,

@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>Ubuntu在vncviewer下Tab键失效等问题</title>
+    <link href="/2020/08/14/vnc%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/"/>
+    <url>/2020/08/14/vnc%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/</url>
+    
+    <content type="html"><![CDATA[<p> </p><h6 id="Ubuntu在vncviewer下Tab键失效"><a href="#Ubuntu在vncviewer下Tab键失效" class="headerlink" title="Ubuntu在vncviewer下Tab键失效"></a>Ubuntu在vncviewer下Tab键失效</h6> <pre><code class="hljs awk">执行该命令 sudo xfconf-query -c xfce4-keyboard-shortcuts -p <span class="hljs-regexp">/xfwm4/</span>custom/<span class="hljs-string">&#x27;&lt;&#x27;</span>Supe<span class="hljs-string">r&#x27;&gt;&#x27;</span>Tab -r</code></pre><h6 id="还原默认终端（慎重操作）"><a href="#还原默认终端（慎重操作）" class="headerlink" title="还原默认终端（慎重操作）"></a>还原默认终端（慎重操作）</h6><pre><code class="hljs maxima"> 若安装了x-<span class="hljs-built_in">terminal</span>-emulator或者其他终端，需要还原时候执行以下命令，根据需要选择相应的终端（默认为gnome-<span class="hljs-built_in">terminal</span>） sudo update-alternatives --config x-<span class="hljs-built_in">terminal</span>-emulator</code></pre><p><img src="/images/pasted-3.png" alt="upload successful"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Linux</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>vnc</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>nginx之upstream_response_time 大于 $request_time？</title>
     <link href="/2020/08/12/nginx%E4%B9%8Bupstream-response-time-%E5%A4%A7%E4%BA%8E%EF%BC%9F-request-time/"/>
     <url>/2020/08/12/nginx%E4%B9%8Bupstream-response-time-%E5%A4%A7%E4%BA%8E%EF%BC%9F-request-time/</url>
