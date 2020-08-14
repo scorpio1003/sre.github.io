@@ -17,7 +17,7 @@
   <meta name="description" content="Sre666">
   <meta name="author" content="Scorpio">
   <meta name="keywords" content="">
-  <title>Ubuntu在vncviewer下Tab键失效等问题 - Sre666</title>
+  <title>mysql5.7参考配置 - Sre666</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -172,7 +172,7 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-08-14 11:52" pubdate>
+    <time datetime="2020-08-14 11:55" pubdate>
       August 14, 2020 am
     </time>
   </div>
@@ -183,7 +183,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      88 字
+      368 字
     </span>
   
 
@@ -193,7 +193,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      6
        分钟
     </span>
   
@@ -223,18 +223,146 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">Ubuntu在vncviewer下Tab键失效等问题</h1>
+            <h1 style="display: none">mysql5.7参考配置</h1>
             
             <div class="markdown-body" id="post-body">
-              <p> </p>
-<h6 id="Ubuntu在vncviewer下Tab键失效"><a href="#Ubuntu在vncviewer下Tab键失效" class="headerlink" title="Ubuntu在vncviewer下Tab键失效"></a>Ubuntu在vncviewer下Tab键失效</h6> <pre><code class="hljs awk">执行该命令 
-sudo xfconf-query -c xfce4-keyboard-shortcuts -p <span class="hljs-regexp">/xfwm4/</span>custom/<span class="hljs-string">&#x27;&lt;&#x27;</span>Supe<span class="hljs-string">r&#x27;&gt;&#x27;</span>Tab -r</code></pre>
+              <pre><code class="hljs nix">[client]
+<span class="hljs-attr">port</span> = <span class="hljs-number">3306</span>
+<span class="hljs-attr">default-character-set</span> = utf8
+<span class="hljs-attr">socket</span> = /mnt/mysql/tmp/mysql.sock
 
-<h6 id="还原默认终端（慎重操作）"><a href="#还原默认终端（慎重操作）" class="headerlink" title="还原默认终端（慎重操作）"></a>还原默认终端（慎重操作）</h6><pre><code class="hljs maxima"> 若安装了x-<span class="hljs-built_in">terminal</span>-emulator或者其他终端，需要还原时候执行以下命令，根据需要选择相应的终端（默认为gnome-<span class="hljs-built_in">terminal</span>）
- sudo update-alternatives --config x-<span class="hljs-built_in">terminal</span>-emulator</code></pre>
+[mysql] 
+<span class="hljs-attr">prompt</span> = <span class="hljs-string">&quot;(\u@\h:)[\d]&gt; &quot;</span>
+no-auto-rehash 
 
-<p><img src="/images/pasted-3.png" srcset="/img/loading.gif" alt="upload successful"></p>
+[mysqld] 
+<span class="hljs-attr">user</span> = mysql
+<span class="hljs-attr">port</span> = <span class="hljs-number">3306</span>
+<span class="hljs-attr">basedir</span> = /usr/local/mysql
+<span class="hljs-attr">datadir</span> = /mnt/mysql/data
+<span class="hljs-attr">tmpdir</span> = /mnt/mysql/tmp
+<span class="hljs-attr">pid-file</span> = /mnt/mysql/data/mysql.pid
+<span class="hljs-attr">socket</span> = /mnt/mysql/tmp/mysql.sock
+<span class="hljs-attr">character-set-server</span> = utf8
+<span class="hljs-attr">collation-server</span> = utf8_general_ci
+<span class="hljs-attr">skip_name_resolve</span> = <span class="hljs-number">1</span>
+<span class="hljs-attr">lower_case_table_names</span> = <span class="hljs-number">1</span>
+<span class="hljs-attr">default_storage_engine</span> = InnoDB
+<span class="hljs-attr">transaction_isolation</span> = REPEATABLE-READ 
+<span class="hljs-attr">sql_mode</span> = &#x27;NO_ENGINE_SUBSTITUTION&#x27;
 
+<span class="hljs-comment">#replication </span>
+<span class="hljs-attr">server-id</span> = <span class="hljs-number">1</span>  <span class="hljs-comment">#唯一, 比如可以ip端口啥的,不要超过10位</span>
+<span class="hljs-attr">binlog_format</span> = ROW
+<span class="hljs-attr">read_only</span> = <span class="hljs-literal">false</span>
+<span class="hljs-attr">log-slave-updates</span> = <span class="hljs-literal">true</span>
+<span class="hljs-comment">#skip-slave-start = true</span>
+
+
+<span class="hljs-comment">#binlog </span>
+<span class="hljs-attr">log-bin</span> = /mnt/mysql/logs/binlog/mysql-bin
+<span class="hljs-attr">log_bin_index</span> = /mnt/mysql/logs/binlog/mysql-bin.index
+<span class="hljs-attr">sync_binlog</span> = <span class="hljs-number">1</span>
+<span class="hljs-attr">max_binlog_size</span> = <span class="hljs-number">1</span>G
+<span class="hljs-attr">expire_logs_days</span> = <span class="hljs-number">7</span>
+<span class="hljs-attr">binlog_rows_query_log_events</span> = ON
+
+<span class="hljs-comment">#error log </span>
+<span class="hljs-attr">log_error</span> = /mnt/mysql/logs/mysql-error.log
+
+<span class="hljs-comment">#slowlog </span>
+<span class="hljs-attr">slow_query_log</span> = <span class="hljs-number">1</span>innodb_buffer_pool_size
+<span class="hljs-attr">long_query_time</span> = <span class="hljs-number">1</span>
+<span class="hljs-attr">slow_query_log_file</span> = /mnt/mysql/logs/slowlog/mysql-slow.log
+<span class="hljs-comment">#log_queries_not_using_indexes = 1</span>
+<span class="hljs-comment">#log_throttle_queries_not_using_indexes = 60 </span>
+<span class="hljs-comment">#log_slow_admin_statements = 1</span>
+<span class="hljs-comment">#log_slow_slave_statements = 1</span>
+
+<span class="hljs-comment">#relaylog </span>
+<span class="hljs-attr">relay-log</span> = /mnt/mysql/logs/relaylog/mysql-relay-bin
+<span class="hljs-attr">relay-log-index</span> = /mnt/mysql/logs/relaylog/mysql-relay-bin.index
+<span class="hljs-attr">relay-log-info-file</span> = /mnt/mysql/logs/relaylog/relay-log.info
+<span class="hljs-attr">relay_log_recovery</span> = <span class="hljs-number">1</span>
+<span class="hljs-attr">relay-log-purge</span> = <span class="hljs-number">1</span>
+
+<span class="hljs-comment">#query cache </span>
+<span class="hljs-attr">query_cache_size</span> = <span class="hljs-number">0</span>
+<span class="hljs-attr">query_cache_type</span> = <span class="hljs-number">0</span>
+
+<span class="hljs-comment"># timeout setting </span>
+<span class="hljs-attr">interactive_timeout</span> = <span class="hljs-number">7200</span>
+<span class="hljs-attr">wait_timeout</span> = <span class="hljs-number">7200</span>
+<span class="hljs-attr">net_write_timeout</span> = <span class="hljs-number">180</span>
+<span class="hljs-attr">net_read_timeout</span> = <span class="hljs-number">180</span>
+
+<span class="hljs-comment"># session memory </span>
+<span class="hljs-attr">binlog_cache_size</span> = <span class="hljs-number">4</span>M
+<span class="hljs-attr">max_binlog_cache_size</span> = <span class="hljs-number">2</span>G
+<span class="hljs-attr">sort_buffer_size</span> = <span class="hljs-number">8</span>M
+<span class="hljs-attr">join_buffer_size</span> = <span class="hljs-number">8</span>M
+<span class="hljs-attr">read_buffer_size</span> = <span class="hljs-number">8</span>M
+<span class="hljs-attr">read_rnd_buffer_size</span> = <span class="hljs-number">2</span>M
+<span class="hljs-attr">tmp_table_size</span> = <span class="hljs-number">16</span>M
+<span class="hljs-attr">thread_stack</span> = <span class="hljs-number">512</span>K
+
+<span class="hljs-comment">#limit </span>
+<span class="hljs-attr">max_connections</span> = <span class="hljs-number">1000</span>
+<span class="hljs-attr">max_user_connections</span> = <span class="hljs-number">300</span>
+<span class="hljs-attr">max_connect_errors</span> = <span class="hljs-number">100000</span>
+<span class="hljs-attr">max_allowed_packet</span> = <span class="hljs-number">16</span>M
+<span class="hljs-attr">max_heap_table_size</span> = <span class="hljs-number">64</span>M
+<span class="hljs-attr">open_files_limit</span> = <span class="hljs-number">65535</span>
+<span class="hljs-attr">thread_cache_size</span> = <span class="hljs-number">64</span>
+<span class="hljs-attr">table_open_cache</span> = <span class="hljs-number">2000</span>
+<span class="hljs-attr">table_definition_cache</span> = <span class="hljs-number">3000</span>
+
+<span class="hljs-comment">#innodb </span>
+<span class="hljs-attr">innodb_file_per_table</span> = <span class="hljs-number">1</span>
+<span class="hljs-attr">innodb_buffer_pool_size</span> = <span class="hljs-number">4</span>G  <span class="hljs-comment"># 一般设置成服务器内存的50%到60% ，服务器没有跑其他程序的情况下</span>
+<span class="hljs-attr">innodb_buffer_pool_instances</span> = <span class="hljs-number">8</span>
+<span class="hljs-attr">innodb_log_group_home_dir</span> = /mnt/mysql/data
+<span class="hljs-attr">innodb_log_file_size</span> = <span class="hljs-number">256</span>M
+<span class="hljs-attr">innodb_log_files_in_group</span> = <span class="hljs-number">3</span> 
+<span class="hljs-attr">innodb_log_buffer_size</span> = <span class="hljs-number">16</span>M
+<span class="hljs-attr">innodb_flush_log_at_trx_commit</span> = <span class="hljs-number">1</span>
+<span class="hljs-attr">innodb_data_home_dir</span> = /mnt/mysql/data
+<span class="hljs-attr">innodb_data_file_path</span> = ibdata1:<span class="hljs-number">1</span>G:autoextend
+<span class="hljs-attr">innodb_rollback_on_timeout</span> = <span class="hljs-number">1</span>
+<span class="hljs-attr">innodb_additional_mem_pool_size</span> = <span class="hljs-number">16</span>M
+<span class="hljs-attr">innodb_max_dirty_pages_pct</span> = <span class="hljs-number">75</span>
+<span class="hljs-attr">innodb_io_capacity</span> = <span class="hljs-number">400</span>
+<span class="hljs-attr">innodb_io_capacity_max</span> = <span class="hljs-number">1500</span>
+<span class="hljs-attr">innodb_flush_method</span> = O_DIRECT
+<span class="hljs-attr">innodb_old_blocks_pct</span> = <span class="hljs-number">37</span>
+<span class="hljs-attr">innodb_old_blocks_time</span> = <span class="hljs-number">1000</span>
+<span class="hljs-attr">innodb_use_native_aio</span> = <span class="hljs-number">1</span>
+<span class="hljs-attr">innodb_use_sys_malloc</span> = <span class="hljs-number">1</span>
+<span class="hljs-attr">innodb_thread_concurrency</span> = <span class="hljs-number">0</span>
+<span class="hljs-attr">innodb_write_io_threads</span> = <span class="hljs-number">4</span>
+<span class="hljs-attr">innodb_read_io_threads</span> = <span class="hljs-number">4</span>
+<span class="hljs-attr">innodb_purge_threads</span> = <span class="hljs-number">2</span>
+<span class="hljs-attr">innodb_change_buffering</span> = all
+<span class="hljs-attr">innodb_print_all_deadlocks</span> = <span class="hljs-number">1</span>
+<span class="hljs-attr">innodb_status_file</span> = <span class="hljs-number">1</span>
+<span class="hljs-attr">innodb_stats_on_metadata</span> = <span class="hljs-number">0</span>
+<span class="hljs-attr">innodb_open_files</span> = <span class="hljs-number">65535</span>
+<span class="hljs-attr">innodb_lock_wait_timeout</span> = <span class="hljs-number">10</span>
+<span class="hljs-comment">#innodb_buffer_pool_load_at_startup = 1</span>
+<span class="hljs-comment">#innodb_buffer_pool_dump_at_shutdown = 1</span>
+
+[myisamchk]
+<span class="hljs-attr">key_buffer_size</span> = <span class="hljs-number">16</span>M
+<span class="hljs-attr">sort_buffer_size</span> = <span class="hljs-number">128</span>M
+<span class="hljs-attr">read_buffer</span> = <span class="hljs-number">2</span>M
+<span class="hljs-attr">write_buffer</span> = <span class="hljs-number">2</span>M
+
+[mysqldump]
+quick
+<span class="hljs-attr">max_allowed_packet</span> = <span class="hljs-number">64</span>M
+
+[mysqlhotcopy]
+interactive-timeout</code></pre>
             </div>
             <hr>
             <div>
@@ -243,7 +371,7 @@ sudo xfconf-query -c xfce4-keyboard-shortcuts -p <span class="hljs-regexp">/xfwm
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Linux/">Linux</a>
+                      <a class="hover-with-bg" href="/categories/mysql/">mysql</a>
                     
                   </div>
                 
@@ -251,7 +379,7 @@ sudo xfconf-query -c xfce4-keyboard-shortcuts -p <span class="hljs-regexp">/xfwm
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/vnc/">vnc</a>
+                      <a class="hover-with-bg" href="/tags/mysql/">mysql</a>
                     
                   </div>
                 
@@ -264,18 +392,12 @@ sudo xfconf-query -c xfce4-keyboard-shortcuts -p <span class="hljs-regexp">/xfwm
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/08/14/mysql5-7%E5%8F%82%E8%80%83%E9%85%8D%E7%BD%AE/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">mysql5.7参考配置</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/08/12/nginx%E4%B9%8Bupstream-response-time-%E5%A4%A7%E4%BA%8E%EF%BC%9F-request-time/">
-                        <span class="hidden-mobile">nginx之upstream_response_time 大于 $request_time？</span>
+                      <a href="/2020/08/14/vnc%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/">
+                        <span class="hidden-mobile">Ubuntu在vncviewer下Tab键失效等问题</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -447,7 +569,7 @@ sudo xfconf-query -c xfce4-keyboard-shortcuts -p <span class="hljs-regexp">/xfwm
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Ubuntu在vncviewer下Tab键失效等问题&nbsp;",
+        "mysql5.7参考配置&nbsp;",
       ],
       cursorChar: "",
       typeSpeed: 70,
