@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>ubuntu18.04下ppa方式安装nvidia450驱动</title>
+    <link href="/2020/08/17/ubuntu18-04%E4%B8%8Bppa%E6%96%B9%E5%BC%8F%E5%AE%89%E8%A3%85nvidia450%E9%A9%B1%E5%8A%A8/"/>
+    <url>/2020/08/17/ubuntu18-04%E4%B8%8Bppa%E6%96%B9%E5%BC%8F%E5%AE%89%E8%A3%85nvidia450%E9%A9%B1%E5%8A%A8/</url>
+    
+    <content type="html"><![CDATA[<pre><code class="hljs smali">1. 卸载干净之前的驱动sudo apt-get remove --purge nvidia-*2. 添加ppa源sudo<span class="hljs-built_in"> add-apt-repository </span>ppa:graphics-drivers/ppa3. 更新源sudo apt update4. 安装驱动sudo apt-get install nvidia-driver-4505. 重启验证 reboot   nvidia-smi</code></pre><p><img src="/images/pasted-8.png" alt="upload successful"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Linux</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>nvidia450</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>mysql5.7参考配置</title>
     <link href="/2020/08/14/mysql5-7%E5%8F%82%E8%80%83%E9%85%8D%E7%BD%AE/"/>
     <url>/2020/08/14/mysql5-7%E5%8F%82%E8%80%83%E9%85%8D%E7%BD%AE/</url>

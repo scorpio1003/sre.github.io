@@ -188,6 +188,67 @@
     
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
+        <a href="/2020/08/17/ubuntu18-04%E4%B8%8Bppa%E6%96%B9%E5%BC%8F%E5%AE%89%E8%A3%85nvidia450%E9%A9%B1%E5%8A%A8/">ubuntu18.04下ppa方式安装nvidia450驱动</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/08/17/ubuntu18-04%E4%B8%8Bppa%E6%96%B9%E5%BC%8F%E5%AE%89%E8%A3%85nvidia450%E9%A9%B1%E5%8A%A8/">
+          
+          
+            
+          
+          1. 卸载干净之前的驱动
+sudo apt-get remove --purge nvidia-*
+
+2. 添加ppa源
+sudo add-apt-repository ppa:graphics-drivers/ppa
+
+3. 更新源
+sudo apt update
+
+4. 安装驱动
+
+sudo apt-get install nvidia-driver-450
+
+5. 重启验证 reboot
+ 
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-08-17 17:47" pubdate>
+              2020-08-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Linux/">Linux</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/nvidia450/">nvidia450</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
         <a href="/2020/08/14/mysql5-7%E5%8F%82%E8%80%83%E9%85%8D%E7%BD%AE/">mysql5.7参考配置</a>
       </h1>
 
@@ -649,55 +710,6 @@ Num
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/cpu/">cpu</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2020/08/05/io%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7fio%E4%BD%BF%E7%94%A8/">io测试工具fio使用</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/08/05/io%E6%B5%8B%E8%AF%95%E5%B7%A5%E5%85%B7fio%E4%BD%BF%E7%94%A8/">
-          
-          
-            
-          
-          fio是一个测试iops的工具，用来对硬件进行压力测试和验证，支持13种不同的I/O引擎，包括:sync,mmap,libaio,posixaio,SGv3,splice,null,network,syslet,guasi,solarisaio等等github地址 ：https://github.com/axboe/fio
-
-fio使用通过使用Fio Job file (configuration
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-08-05 17:14" pubdate>
-              2020-08-05
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Linux/">Linux</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/io/">io</a>
             
           </div>
         
