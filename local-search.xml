@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>vncserver配置和添加用户</title>
+    <link href="/2020/08/17/vncserver%E9%85%8D%E7%BD%AE%E5%92%8C%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7/"/>
+    <url>/2020/08/17/vncserver%E9%85%8D%E7%BD%AE%E5%92%8C%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7/</url>
+    
+    <content type="html"><![CDATA[<h5 id="1-安装vnc和xface4桌面"><a href="#1-安装vnc和xface4桌面" class="headerlink" title="1.安装vnc和xface4桌面"></a>1.安装vnc和xface4桌面</h5><p> <pre><code class="hljs apache"><span class="hljs-attribute">sudo</span> apt install xfce<span class="hljs-number">4</span> xfce<span class="hljs-number">4</span>-goodies vnc<span class="hljs-number">4</span>server</code></pre></p><h5 id="2-创建用户，username换成需要创建的用户名"><a href="#2-创建用户，username换成需要创建的用户名" class="headerlink" title="2. 创建用户，username换成需要创建的用户名"></a>2. 创建用户，username换成需要创建的用户名</h5><pre><code class="hljs awk">sudo useradd -m username -s <span class="hljs-regexp">/bin/</span>bash</code></pre><h5 id="3-设置sudo不需要密码"><a href="#3-设置sudo不需要密码" class="headerlink" title="3. 设置sudo不需要密码"></a>3. 设置sudo不需要密码</h5><pre><code class="hljs ada"> vim /etc/sudoers 并且在 %sudo <span class="hljs-keyword">ALL</span>=(<span class="hljs-keyword">ALL</span>:<span class="hljs-keyword">ALL</span>) <span class="hljs-keyword">ALL</span>下面添加  username <span class="hljs-keyword">ALL</span>=(<span class="hljs-keyword">ALL</span>:<span class="hljs-keyword">ALL</span>) NOPASSWD:<span class="hljs-keyword">ALL</span></code></pre><p> ##### 4.  创建对应用户的vnc桌面, 这里给用户的窗口为7，数字可自定义，一个用户对应1个即可</p><pre><code class="hljs apache">   <span class="hljs-attribute">su</span> - username  #切到对应用户的家目录下  <span class="hljs-attribute">vncserver</span> -geometry <span class="hljs-number">1920</span>x<span class="hljs-number">1080</span> :<span class="hljs-number">7</span>  #第一次需要设置vnc连接的密码  <span class="hljs-attribute">vncserver</span> -kill :<span class="hljs-number">7</span>  #关闭当前用户的vnc，要替换默认的配置</code></pre><h5 id="5-替换xstartup文件"><a href="#5-替换xstartup文件" class="headerlink" title="5.替换xstartup文件"></a>5.替换xstartup文件</h5><pre><code class="hljs awk"> &gt; <span class="hljs-regexp">/home/u</span>sername<span class="hljs-regexp">/.vnc/</span>xstartup <span class="hljs-comment">#清空</span> cat &gt;&gt; <span class="hljs-regexp">/home/u</span>sername<span class="hljs-regexp">/.vnc/</span>xstartup &lt;&lt;EOF <span class="hljs-comment">#!/bin/sh</span><span class="hljs-comment"># Uncomment the following two lines for normal desktop:</span><span class="hljs-comment"># unset SESSION_MANAGER</span><span class="hljs-comment"># exec /etc/X11/xinit/xinitrc</span><span class="hljs-comment">#xrdb $HOME/.Xresources</span><span class="hljs-comment">#xsettroot -solid grey</span><span class="hljs-comment">#startxfce4&amp;</span>[ -x <span class="hljs-regexp">/etc/</span>vnc<span class="hljs-regexp">/xstartup ] &amp;&amp; exec /</span>etc<span class="hljs-regexp">/vnc/</span>xstartup[ -r <span class="hljs-variable">$HOME</span><span class="hljs-regexp">/.Xresources ] &amp;&amp; xrdb $HOME/</span>.Xresourcesxsetroot -solid greyvncconfig -iconic &amp;x-terminal-emulator -geometry <span class="hljs-number">80</span>x24+<span class="hljs-number">10</span>+<span class="hljs-number">10</span> -ls -title <span class="hljs-string">&quot;$VNCDESKTOP Desktop&quot;</span> &amp;<span class="hljs-comment">#x-window-manager &amp;</span>sesion-manager &amp; xfdesktop &amp; xfce4-panel &amp;xfce4-menu-plugin &amp;xfsettingsd &amp;xfconfd &amp;xfwm4 &amp;EOF</code></pre><h5 id="6-xstartup文件加权限，需要x权限"><a href="#6-xstartup文件加权限，需要x权限" class="headerlink" title="6. xstartup文件加权限，需要x权限"></a>6. xstartup文件加权限，需要x权限</h5><pre><code class="hljs awk">chmod a+x <span class="hljs-regexp">/home/u</span>sername<span class="hljs-regexp">/.vnc/</span>xstartup</code></pre><h5 id="7-启动当前用户的vnc"><a href="#7-启动当前用户的vnc" class="headerlink" title="7.启动当前用户的vnc"></a>7.启动当前用户的vnc</h5><pre><code class="hljs apache"> <span class="hljs-attribute">su</span> - username   <span class="hljs-attribute">vncserver</span> -geometry <span class="hljs-number">1920</span>x<span class="hljs-number">1080</span> :<span class="hljs-number">7</span> </code></pre><p>          </p><p>    </p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Linux</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>vncserver</tag>
+      
+      <tag>xface4</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>ubuntu18.04下ppa方式安装nvidia450驱动</title>
     <link href="/2020/08/17/ubuntu18-04%E4%B8%8Bppa%E6%96%B9%E5%BC%8F%E5%AE%89%E8%A3%85nvidia450%E9%A9%B1%E5%8A%A8/"/>
     <url>/2020/08/17/ubuntu18-04%E4%B8%8Bppa%E6%96%B9%E5%BC%8F%E5%AE%89%E8%A3%85nvidia450%E9%A9%B1%E5%8A%A8/</url>

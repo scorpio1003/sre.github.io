@@ -188,6 +188,59 @@
     
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
+        <a href="/2020/08/17/vncserver%E9%85%8D%E7%BD%AE%E5%92%8C%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7/">vncserver配置和添加用户</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/08/17/vncserver%E9%85%8D%E7%BD%AE%E5%92%8C%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7/">
+          
+          
+            
+          
+          1.安装vnc和xface4桌面 sudo apt install xfce4 xfce4-goodies vnc4server
+2. 创建用户，username换成需要创建的用户名sudo useradd -m username -s /bin/bash
+3. 设置sudo不需要密码 vim /etc/sudoers
+ 并且在 %sudo ALL=(ALL:ALL) ALL下面添加
+  user
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-08-17 17:50" pubdate>
+              2020-08-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Linux/">Linux</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/vncserver/">vncserver</a>
+            
+              <a href="/tags/xface4/">xface4</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
         <a href="/2020/08/17/ubuntu18-04%E4%B8%8Bppa%E6%96%B9%E5%BC%8F%E5%AE%89%E8%A3%85nvidia450%E9%A9%B1%E5%8A%A8/">ubuntu18.04下ppa方式安装nvidia450驱动</a>
       </h1>
 
@@ -658,58 +711,6 @@ bin/kafka-topics.sh --create --zookeeper local
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/lsyncd/">lsyncd</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2020/08/05/sysbench-%E6%B5%8B%E8%AF%95-CPU%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E8%AF%A6%E8%A7%A3/">sysbench 测试 CPU性能测试详解</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/08/05/sysbench-%E6%B5%8B%E8%AF%95-CPU%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E8%AF%A6%E8%A7%A3/">
-          
-          
-            
-          
-          sysbench安装yum install sysbench
-
-常用参数–cpu-max-prime: 素数生成数量的上限–threads: 线程数–time: 运行时长，单位秒–events: event上限次数
-结果分析sysbench 1.0.17 (using system LuaJIT 2.0.4)
-Running the test with following options:
-Num
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-08-05 19:29" pubdate>
-              2020-08-05
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Linux/">Linux</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/cpu/">cpu</a>
             
           </div>
         
