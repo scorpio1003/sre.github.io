@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>ES新增一台节点分片不分配</title>
+    <link href="/2020/09/01/ES%E6%96%B0%E5%A2%9E%E4%B8%80%E5%8F%B0%E8%8A%82%E7%82%B9%E5%88%86%E7%89%87%E4%B8%8D%E5%88%86%E9%85%8D/"/>
+    <url>/2020/09/01/ES%E6%96%B0%E5%A2%9E%E4%B8%80%E5%8F%B0%E8%8A%82%E7%82%B9%E5%88%86%E7%89%87%E4%B8%8D%E5%88%86%E9%85%8D/</url>
+    
+    <content type="html"><![CDATA[<h6 id="现象："><a href="#现象：" class="headerlink" title="现象："></a>现象：</h6><pre><code>     es集群由于磁盘不足扩容一个节点，但是集群加入成功后，没有任何分片同步到新节点</code></pre><h6 id="查看当前水位配置"><a href="#查看当前水位配置" class="headerlink" title="查看当前水位配置"></a>查看当前水位配置</h6><pre><code class="hljs awk">curl http:<span class="hljs-regexp">//</span>es.test.com:<span class="hljs-number">9200</span><span class="hljs-regexp">/_cluster/</span>settings返回：        <span class="hljs-string">&quot;watermark&quot;</span>: &#123;              <span class="hljs-string">&quot;low&quot;</span>: <span class="hljs-string">&quot;85%&quot;</span>,              <span class="hljs-string">&quot;high&quot;</span>: <span class="hljs-string">&quot;90%&quot;</span>            &#125;</code></pre><h6 id="将水位改低点-如果不是新增节点不分片，就需要将水位改大点-，根据自己节点磁盘的百分比来设置，让其可以分片到新节点上"><a href="#将水位改低点-如果不是新增节点不分片，就需要将水位改大点-，根据自己节点磁盘的百分比来设置，让其可以分片到新节点上" class="headerlink" title="将水位改低点(如果不是新增节点不分片，就需要将水位改大点)，根据自己节点磁盘的百分比来设置，让其可以分片到新节点上"></a>将水位改低点(如果不是新增节点不分片，就需要将水位改大点)，根据自己节点磁盘的百分比来设置，让其可以分片到新节点上</h6><pre><code class="hljs routeros">PUT _cluster/settings&#123;  <span class="hljs-string">&quot;transient&quot;</span>: &#123;    <span class="hljs-string">&quot;cluster.routing.allocation.disk.watermark.low&quot;</span>: <span class="hljs-string">&quot;85%&quot;</span>,    <span class="hljs-string">&quot;cluster.routing.allocation.disk.watermark.high&quot;</span>: <span class="hljs-string">&quot;85%&quot;</span>  &#125;&#125;</code></pre><h6 id="等节点分片分片差不多均匀的时候，还原默认值（根据需要）"><a href="#等节点分片分片差不多均匀的时候，还原默认值（根据需要）" class="headerlink" title="等节点分片分片差不多均匀的时候，还原默认值（根据需要）"></a>等节点分片分片差不多均匀的时候，还原默认值（根据需要）</h6><pre><code class="hljs routeros">PUT _cluster/settings&#123;  <span class="hljs-string">&quot;transient&quot;</span>: &#123;    <span class="hljs-string">&quot;cluster.routing.allocation.disk.watermark.low&quot;</span>: <span class="hljs-string">&quot;85%&quot;</span>,    <span class="hljs-string">&quot;cluster.routing.allocation.disk.watermark.high&quot;</span>: <span class="hljs-string">&quot;90%&quot;</span>  &#125;&#125;</code></pre>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>ES</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>vncserver配置和添加用户</title>
     <link href="/2020/08/17/vncserver%E9%85%8D%E7%BD%AE%E5%92%8C%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7/"/>
     <url>/2020/08/17/vncserver%E9%85%8D%E7%BD%AE%E5%92%8C%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7/</url>

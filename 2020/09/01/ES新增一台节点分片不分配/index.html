@@ -17,7 +17,7 @@
   <meta name="description" content="Sre666">
   <meta name="author" content="Scorpio">
   <meta name="keywords" content="">
-  <title>vncserver配置和添加用户 - Sre666</title>
+  <title>ES新增一台节点分片不分配 - Sre666</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -172,8 +172,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-08-17 17:50" pubdate>
-      August 17, 2020 pm
+    <time datetime="2020-09-01 13:23" pubdate>
+      September 1, 2020 pm
     </time>
   </div>
 
@@ -183,7 +183,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      294 字
+      213 字
     </span>
   
 
@@ -193,7 +193,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      3
        分钟
     </span>
   
@@ -223,78 +223,47 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">vncserver配置和添加用户</h1>
+            <h1 style="display: none">ES新增一台节点分片不分配</h1>
             
             <div class="markdown-body" id="post-body">
-              <h5 id="1-安装vnc和xface4桌面"><a href="#1-安装vnc和xface4桌面" class="headerlink" title="1.安装vnc和xface4桌面"></a>1.安装vnc和xface4桌面</h5><p> <pre><code class="hljs apache"><span class="hljs-attribute">sudo</span> apt install xfce<span class="hljs-number">4</span> xfce<span class="hljs-number">4</span>-goodies vnc<span class="hljs-number">4</span>server</code></pre></p>
-<h5 id="2-创建用户，username换成需要创建的用户名"><a href="#2-创建用户，username换成需要创建的用户名" class="headerlink" title="2. 创建用户，username换成需要创建的用户名"></a>2. 创建用户，username换成需要创建的用户名</h5><pre><code class="hljs awk">sudo useradd -m username -s <span class="hljs-regexp">/bin/</span>bash</code></pre>
-<h5 id="3-设置sudo不需要密码"><a href="#3-设置sudo不需要密码" class="headerlink" title="3. 设置sudo不需要密码"></a>3. 设置sudo不需要密码</h5><pre><code class="hljs ada"> vim /etc/sudoers
- 并且在 %sudo <span class="hljs-keyword">ALL</span>=(<span class="hljs-keyword">ALL</span>:<span class="hljs-keyword">ALL</span>) <span class="hljs-keyword">ALL</span>下面添加
-  username <span class="hljs-keyword">ALL</span>=(<span class="hljs-keyword">ALL</span>:<span class="hljs-keyword">ALL</span>) NOPASSWD:<span class="hljs-keyword">ALL</span></code></pre>
+              <h6 id="现象："><a href="#现象：" class="headerlink" title="现象："></a>现象：</h6><pre><code>     es集群由于磁盘不足扩容一个节点，但是集群加入成功后，没有任何分片同步到新节点</code></pre>
+<h6 id="查看当前水位配置"><a href="#查看当前水位配置" class="headerlink" title="查看当前水位配置"></a>查看当前水位配置</h6><pre><code class="hljs awk">curl http:<span class="hljs-regexp">//</span>es.test.com:<span class="hljs-number">9200</span><span class="hljs-regexp">/_cluster/</span>settings
 
-<p> ##### 4.  创建对应用户的vnc桌面, 这里给用户的窗口为7，数字可自定义，一个用户对应1个即可</p>
-<pre><code class="hljs apache">   <span class="hljs-attribute">su</span> - username  #切到对应用户的家目录下
+返回：
+        <span class="hljs-string">&quot;watermark&quot;</span>: &#123;
+              <span class="hljs-string">&quot;low&quot;</span>: <span class="hljs-string">&quot;85%&quot;</span>,
+              <span class="hljs-string">&quot;high&quot;</span>: <span class="hljs-string">&quot;90%&quot;</span>
+            &#125;
+</code></pre>
 
-  <span class="hljs-attribute">vncserver</span> -geometry <span class="hljs-number">1920</span>x<span class="hljs-number">1080</span> :<span class="hljs-number">7</span>  #第一次需要设置vnc连接的密码
+<h6 id="将水位改低点-如果不是新增节点不分片，就需要将水位改大点-，根据自己节点磁盘的百分比来设置，让其可以分片到新节点上"><a href="#将水位改低点-如果不是新增节点不分片，就需要将水位改大点-，根据自己节点磁盘的百分比来设置，让其可以分片到新节点上" class="headerlink" title="将水位改低点(如果不是新增节点不分片，就需要将水位改大点)，根据自己节点磁盘的百分比来设置，让其可以分片到新节点上"></a>将水位改低点(如果不是新增节点不分片，就需要将水位改大点)，根据自己节点磁盘的百分比来设置，让其可以分片到新节点上</h6><pre><code class="hljs routeros">PUT _cluster/settings
+&#123;
+  <span class="hljs-string">&quot;transient&quot;</span>: &#123;
+    <span class="hljs-string">&quot;cluster.routing.allocation.disk.watermark.low&quot;</span>: <span class="hljs-string">&quot;85%&quot;</span>,
+    <span class="hljs-string">&quot;cluster.routing.allocation.disk.watermark.high&quot;</span>: <span class="hljs-string">&quot;85%&quot;</span>
+  &#125;
+&#125;</code></pre>
 
-  <span class="hljs-attribute">vncserver</span> -kill :<span class="hljs-number">7</span>  #关闭当前用户的vnc，要替换默认的配置</code></pre>
-
-<h5 id="5-替换xstartup文件"><a href="#5-替换xstartup文件" class="headerlink" title="5.替换xstartup文件"></a>5.替换xstartup文件</h5><pre><code class="hljs awk"> &gt; <span class="hljs-regexp">/home/u</span>sername<span class="hljs-regexp">/.vnc/</span>xstartup <span class="hljs-comment">#清空</span>
-
-
- cat &gt;&gt; <span class="hljs-regexp">/home/u</span>sername<span class="hljs-regexp">/.vnc/</span>xstartup &lt;&lt;EOF 
-
-<span class="hljs-comment">#!/bin/sh</span>
-
-<span class="hljs-comment"># Uncomment the following two lines for normal desktop:</span>
-<span class="hljs-comment"># unset SESSION_MANAGER</span>
-<span class="hljs-comment"># exec /etc/X11/xinit/xinitrc</span>
-<span class="hljs-comment">#xrdb $HOME/.Xresources</span>
-<span class="hljs-comment">#xsettroot -solid grey</span>
-<span class="hljs-comment">#startxfce4&amp;</span>
-
-[ -x <span class="hljs-regexp">/etc/</span>vnc<span class="hljs-regexp">/xstartup ] &amp;&amp; exec /</span>etc<span class="hljs-regexp">/vnc/</span>xstartup
-[ -r <span class="hljs-variable">$HOME</span><span class="hljs-regexp">/.Xresources ] &amp;&amp; xrdb $HOME/</span>.Xresources
-xsetroot -solid grey
-vncconfig -iconic &amp;
-
-x-terminal-emulator -geometry <span class="hljs-number">80</span>x24+<span class="hljs-number">10</span>+<span class="hljs-number">10</span> -ls -title <span class="hljs-string">&quot;$VNCDESKTOP Desktop&quot;</span> &amp;
-<span class="hljs-comment">#x-window-manager &amp;</span>
-
-sesion-manager &amp; xfdesktop &amp; xfce4-panel &amp;
-xfce4-menu-plugin &amp;
-xfsettingsd &amp;
-xfconfd &amp;
-xfwm4 &amp;
-EOF</code></pre>
-<h5 id="6-xstartup文件加权限，需要x权限"><a href="#6-xstartup文件加权限，需要x权限" class="headerlink" title="6. xstartup文件加权限，需要x权限"></a>6. xstartup文件加权限，需要x权限</h5><pre><code class="hljs awk">chmod a+x <span class="hljs-regexp">/home/u</span>sername<span class="hljs-regexp">/.vnc/</span>xstartup</code></pre>
-
-<h5 id="7-启动当前用户的vnc"><a href="#7-启动当前用户的vnc" class="headerlink" title="7.启动当前用户的vnc"></a>7.启动当前用户的vnc</h5><pre><code class="hljs apache"> <span class="hljs-attribute">su</span> - username  
- <span class="hljs-attribute">vncserver</span> -geometry <span class="hljs-number">1920</span>x<span class="hljs-number">1080</span> :<span class="hljs-number">7</span> </code></pre>
+<h6 id="等节点分片分片差不多均匀的时候，还原默认值（根据需要）"><a href="#等节点分片分片差不多均匀的时候，还原默认值（根据需要）" class="headerlink" title="等节点分片分片差不多均匀的时候，还原默认值（根据需要）"></a>等节点分片分片差不多均匀的时候，还原默认值（根据需要）</h6><pre><code class="hljs routeros">PUT _cluster/settings
+&#123;
+  <span class="hljs-string">&quot;transient&quot;</span>: &#123;
+    <span class="hljs-string">&quot;cluster.routing.allocation.disk.watermark.low&quot;</span>: <span class="hljs-string">&quot;85%&quot;</span>,
+    <span class="hljs-string">&quot;cluster.routing.allocation.disk.watermark.high&quot;</span>: <span class="hljs-string">&quot;90%&quot;</span>
+  &#125;
+&#125;</code></pre>
 
 
-<p>          </p>
-<p>    </p>
 
             </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
                 
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/Linux/">Linux</a>
-                    
-                  </div>
-                
                 
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/vncserver/">vncserver</a>
-                    
-                      <a class="hover-with-bg" href="/tags/xface4/">xface4</a>
+                      <a class="hover-with-bg" href="/tags/ES/">ES</a>
                     
                   </div>
                 
@@ -307,18 +276,12 @@ EOF</code></pre>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/09/01/ES%E6%96%B0%E5%A2%9E%E4%B8%80%E5%8F%B0%E8%8A%82%E7%82%B9%E5%88%86%E7%89%87%E4%B8%8D%E5%88%86%E9%85%8D/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">ES新增一台节点分片不分配</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/08/17/ubuntu18-04%E4%B8%8Bppa%E6%96%B9%E5%BC%8F%E5%AE%89%E8%A3%85nvidia450%E9%A9%B1%E5%8A%A8/">
-                        <span class="hidden-mobile">ubuntu18.04下ppa方式安装nvidia450驱动</span>
+                      <a href="/2020/08/17/vncserver%E9%85%8D%E7%BD%AE%E5%92%8C%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7/">
+                        <span class="hidden-mobile">vncserver配置和添加用户</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -490,7 +453,7 @@ EOF</code></pre>
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "vncserver配置和添加用户&nbsp;",
+        "ES新增一台节点分片不分配&nbsp;",
       ],
       cursorChar: "",
       typeSpeed: 70,
