@@ -188,6 +188,46 @@
     
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
+        <a href="/2020/10/23/%E9%80%9A%E8%BF%87%E9%98%BF%E9%87%8C%E4%BA%91%E7%9A%84ssl-vpn%E8%B5%B0%E5%86%85%E7%BD%91%E4%B8%8B%E8%BD%BDoss%E8%B5%84%E6%BA%90/">通过阿里云的ssl-vpn走内网下载oss资源</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/10/23/%E9%80%9A%E8%BF%87%E9%98%BF%E9%87%8C%E4%BA%91%E7%9A%84ssl-vpn%E8%B5%B0%E5%86%85%E7%BD%91%E4%B8%8B%E8%BD%BDoss%E8%B5%84%E6%BA%90/">
+          
+          
+            
+          
+          场景: 通过oss公网下载会产生费用，既然vpn能和云内部资源互通，那希望通过vpn下载的时候也使用内网下载，这样不会产生费用。
+
+#vpn网段放开阿里云oss的网段，oss内网地址段: 100.64.0.0/10
+
+默认生成的链接地址都是公网地址，如果想用wget等工具下载的时候，需要修改一下地址
+
+例如： 需要多加一个 internal   
+公网地址: test-download.oss-c
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-10-23 13:05" pubdate>
+              2020-10-23
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
         <a href="/2020/10/23/elasticsearch%E5%B9%B3%E6%BB%91%E7%BC%A9%E5%AE%B9%E4%B8%8B%E7%BA%BF/">elasticsearch平滑缩容下线</a>
       </h1>
 
@@ -654,58 +694,6 @@ mysql：5.7.31
               <a href="/tags/ubuntu/">ubuntu</a>
             
               <a href="/tags/apparmor/">apparmor</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2020/08/06/%E9%98%BF%E9%87%8C%E4%BA%91%E5%AE%B9%E5%99%A8%E5%B9%B3%E5%8F%B0%E8%BF%90%E7%BB%B4-kubectl%E5%B7%A5%E5%85%B7%E9%9B%86/">k8s工具集</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/08/06/%E9%98%BF%E9%87%8C%E4%BA%91%E5%AE%B9%E5%99%A8%E5%B9%B3%E5%8F%B0%E8%BF%90%E7%BB%B4-kubectl%E5%B7%A5%E5%85%B7%E9%9B%86/">
-          
-          
-            
-          
-          集群切换、命名空间切换工具kubectlx, kubenshttps://github.com/ahmetb/kubectx
-Kubectl短命令集https://github.com/ahmetb/kubectl-aliases
-命令行展示Kubernetes的集群名称和NS名称https://github.com/jonmosco/kube-ps1
-K8S资源跟踪工具kubespyhttps:
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-08-06 00:48" pubdate>
-              2020-08-06
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/kubernetes/">kubernetes</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/docker/">docker</a>
-            
-              <a href="/tags/k8s/">k8s</a>
             
           </div>
         

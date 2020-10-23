@@ -17,7 +17,7 @@
   <meta name="description" content="Sre666">
   <meta name="author" content="Scorpio">
   <meta name="keywords" content="">
-  <title>elasticsearch平滑缩容下线 - Sre666</title>
+  <title>通过阿里云的ssl-vpn走内网下载oss资源 - Sre666</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -172,7 +172,7 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-10-23 12:55" pubdate>
+    <time datetime="2020-10-23 13:05" pubdate>
       October 23, 2020 pm
     </time>
   </div>
@@ -183,7 +183,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      252 字
+      221 字
     </span>
   
 
@@ -193,7 +193,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      2
        分钟
     </span>
   
@@ -223,47 +223,27 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto" id="post">
             <!-- SEO header -->
-            <h1 style="display: none">elasticsearch平滑缩容下线</h1>
+            <h1 style="display: none">通过阿里云的ssl-vpn走内网下载oss资源</h1>
             
             <div class="markdown-body" id="post-body">
-              <pre><code class="hljs awk">例如要下线节点: <span class="hljs-number">10.10</span>.<span class="hljs-number">1.11</span>
+              <pre><code class="hljs angelscript">场景: 通过oss公网下载会产生费用，既然vpn能和云内部资源互通，那希望通过vpn下载的时候也使用内网下载，这样不会产生费用。
 
-<span class="hljs-comment">#步骤1：将节点从集群路由策略中排除</span>
-curl -XPUT http:<span class="hljs-regexp">//</span><span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>:<span class="hljs-number">9200</span><span class="hljs-regexp">/_cluster/</span>settings?pretty -d <span class="hljs-string">&#x27;&#123;&quot;transient&quot;:&#123;&quot;cluster.routing.allocation.exclude._ip&quot;:&quot;10.10.1.11&quot;&#125;&#125;&#x27;</span>
+#vpn网段放开阿里云oss的网段，oss内网地址段: <span class="hljs-number">100.64</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span>/<span class="hljs-number">10</span>
 
-<span class="hljs-comment">#步骤2:等待节点上分片全部被迁移(确认该机器没有分片之后才是真正迁移走了</span>
-<span class="hljs-comment">##检查集群状态，若出现pening_tasks，当pending_tasks的等级&gt;=HIGH时，存在集群无法新建索引的风险</span>
-curl http:<span class="hljs-regexp">//</span><span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>:<span class="hljs-number">9200</span><span class="hljs-regexp">/_cluster/</span>health?pretty
-curl http:<span class="hljs-regexp">//</span><span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>:<span class="hljs-number">9200</span><span class="hljs-regexp">/_cluster/</span>pending_tasks?pretty
-<span class="hljs-comment">#确认该机器没有分片之后才是真正迁移走了</span>
+默认生成的链接地址都是公网地址，如果想用wget等工具下载的时候，需要修改一下地址
 
-<span class="hljs-comment">##若集群中出现UNASSIGNED shards,检查原因，查看是否是分配策略导致无法迁移分片</span>
-curl http:<span class="hljs-regexp">//</span><span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>:<span class="hljs-number">9200</span><span class="hljs-regexp">/_cluster/</span>allocation/explain?pretty
+例如： 需要多加一个 <span class="hljs-built_in">int</span>ernal   
+公网地址: test-download.oss-cn-beijing.aliyuncs.com
+内网地址: test-download.oss-cn-beijing-<span class="hljs-built_in">int</span>ernal.aliyuncs.com</code></pre>
 
-<span class="hljs-comment">#步骤3：下线节点</span>
-
-<span class="hljs-comment">#步骤4：取消节点禁用策略</span>
-curl -XPUT http:<span class="hljs-regexp">//</span><span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>:<span class="hljs-number">9200</span><span class="hljs-regexp">/_cluster/</span>settings?pretty -d <span class="hljs-string">&#x27;&#123;&quot;transient&quot;:&#123;&quot;cluster.routing.allocation.exclude._ip&quot;: null&#125;&#125;&#x27;</span>
-</code></pre>
+<pre><code class="hljs angelscript">如果需要在mac下下载，请执行下面命令： 
+sudo sysctl -w net.inet.tcp.sack=<span class="hljs-number">0</span>
+原因: macOS对tcp option实现问题，sack是两字节的，mac为了<span class="hljs-number">4</span>字节对齐(RFC协议要求)，结尾多补了<span class="hljs-number">2</span>个eol。把sack去掉后，就不需要补<span class="hljs-number">2</span>个eol，所以就不会丢弃SYN包。</code></pre>
             </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
                 
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/elasticsearch/">elasticsearch</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/ES/">ES</a>
-                    
-                  </div>
                 
               </div>
               
@@ -274,18 +254,12 @@ curl -XPUT http:<span class="hljs-regexp">//</span><span class="hljs-number">127
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/10/23/%E9%80%9A%E8%BF%87%E9%98%BF%E9%87%8C%E4%BA%91%E7%9A%84ssl-vpn%E8%B5%B0%E5%86%85%E7%BD%91%E4%B8%8B%E8%BD%BDoss%E8%B5%84%E6%BA%90/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">通过阿里云的ssl-vpn走内网下载oss资源</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/09/01/ES%E6%96%B0%E5%A2%9E%E4%B8%80%E5%8F%B0%E8%8A%82%E7%82%B9%E5%88%86%E7%89%87%E4%B8%8D%E5%88%86%E9%85%8D/">
-                        <span class="hidden-mobile">ES新增一台节点分片不分配</span>
+                      <a href="/2020/10/23/elasticsearch%E5%B9%B3%E6%BB%91%E7%BC%A9%E5%AE%B9%E4%B8%8B%E7%BA%BF/">
+                        <span class="hidden-mobile">elasticsearch平滑缩容下线</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -457,7 +431,7 @@ curl -XPUT http:<span class="hljs-regexp">//</span><span class="hljs-number">127
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "elasticsearch平滑缩容下线&nbsp;",
+        "通过阿里云的ssl-vpn走内网下载oss资源&nbsp;",
       ],
       cursorChar: "",
       typeSpeed: 70,

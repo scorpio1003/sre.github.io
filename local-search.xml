@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>通过阿里云的ssl-vpn走内网下载oss资源</title>
+    <link href="/2020/10/23/%E9%80%9A%E8%BF%87%E9%98%BF%E9%87%8C%E4%BA%91%E7%9A%84ssl-vpn%E8%B5%B0%E5%86%85%E7%BD%91%E4%B8%8B%E8%BD%BDoss%E8%B5%84%E6%BA%90/"/>
+    <url>/2020/10/23/%E9%80%9A%E8%BF%87%E9%98%BF%E9%87%8C%E4%BA%91%E7%9A%84ssl-vpn%E8%B5%B0%E5%86%85%E7%BD%91%E4%B8%8B%E8%BD%BDoss%E8%B5%84%E6%BA%90/</url>
+    
+    <content type="html"><![CDATA[<pre><code class="hljs angelscript">场景: 通过oss公网下载会产生费用，既然vpn能和云内部资源互通，那希望通过vpn下载的时候也使用内网下载，这样不会产生费用。#vpn网段放开阿里云oss的网段，oss内网地址段: <span class="hljs-number">100.64</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span>/<span class="hljs-number">10</span>默认生成的链接地址都是公网地址，如果想用wget等工具下载的时候，需要修改一下地址例如： 需要多加一个 <span class="hljs-built_in">int</span>ernal   公网地址: test-download.oss-cn-beijing.aliyuncs.com内网地址: test-download.oss-cn-beijing-<span class="hljs-built_in">int</span>ernal.aliyuncs.com</code></pre><pre><code class="hljs angelscript">如果需要在mac下下载，请执行下面命令： sudo sysctl -w net.inet.tcp.sack=<span class="hljs-number">0</span>原因: macOS对tcp option实现问题，sack是两字节的，mac为了<span class="hljs-number">4</span>字节对齐(RFC协议要求)，结尾多补了<span class="hljs-number">2</span>个eol。把sack去掉后，就不需要补<span class="hljs-number">2</span>个eol，所以就不会丢弃SYN包。</code></pre>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>elasticsearch平滑缩容下线</title>
     <link href="/2020/10/23/elasticsearch%E5%B9%B3%E6%BB%91%E7%BC%A9%E5%AE%B9%E4%B8%8B%E7%BA%BF/"/>
     <url>/2020/10/23/elasticsearch%E5%B9%B3%E6%BB%91%E7%BC%A9%E5%AE%B9%E4%B8%8B%E7%BA%BF/</url>
