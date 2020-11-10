@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>redis丢失订阅消息问题修复</title>
+    <link href="/2020/11/10/redis%E4%B8%A2%E5%A4%B1%E8%AE%A2%E9%98%85%E6%B6%88%E6%81%AF%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D/"/>
+    <url>/2020/11/10/redis%E4%B8%A2%E5%A4%B1%E8%AE%A2%E9%98%85%E6%B6%88%E6%81%AF%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D/</url>
+    
+    <content type="html"><![CDATA[<pre><code class="hljs plain">redis为了解决输出缓冲区消息大量堆积的隐患，设置了一些保护机制，主要采用两种限制措施：大小限制，当某一客户端缓冲区超过设定值后直接关闭连接；持续性限制，当某一客户端缓冲区持续一段时间占用过大空间时关闭连接。</code></pre><p><img src="/images/pasted-9.png" alt="upload successful"></p><pre><code class="hljs routeros">通过日志看： 是由Redis的输出缓冲超出限制导致， 默认情况下pubsub 这种订阅模式 软限制是8m 硬限制是32m 无论触发哪一个都会关闭客户端的连接 例如: 修改pubsub 改为128m和64mconfig <span class="hljs-string">&quot;normal 0 0 0 slave 268435456 67108864 60 pubsub 134217728 67108864 60&quot;</span>config rewrite</code></pre>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>redis</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>通过阿里云的ssl-vpn走内网下载oss资源</title>
     <link href="/2020/10/23/%E9%80%9A%E8%BF%87%E9%98%BF%E9%87%8C%E4%BA%91%E7%9A%84ssl-vpn%E8%B5%B0%E5%86%85%E7%BD%91%E4%B8%8B%E8%BD%BDoss%E8%B5%84%E6%BA%90/"/>
     <url>/2020/10/23/%E9%80%9A%E8%BF%87%E9%98%BF%E9%87%8C%E4%BA%91%E7%9A%84ssl-vpn%E8%B5%B0%E5%86%85%E7%BD%91%E4%B8%8B%E8%BD%BDoss%E8%B5%84%E6%BA%90/</url>

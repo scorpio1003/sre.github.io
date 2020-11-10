@@ -188,6 +188,53 @@
     
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
+        <a href="/2020/11/10/redis%E4%B8%A2%E5%A4%B1%E8%AE%A2%E9%98%85%E6%B6%88%E6%81%AF%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D/">redis丢失订阅消息问题修复</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/11/10/redis%E4%B8%A2%E5%A4%B1%E8%AE%A2%E9%98%85%E6%B6%88%E6%81%AF%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D/">
+          
+          
+            
+          
+          redis为了解决输出缓冲区消息大量堆积的隐患，设置了一些保护机制，主要采用两种限制措施：
+大小限制，当某一客户端缓冲区超过设定值后直接关闭连接；
+持续性限制，当某一客户端缓冲区持续一段时间占用过大空间时关闭连接。
+
+
+通过日志看： 是由Redis的输出缓冲超出限制导致， 默认情况下pubsub 这种订阅模式 软限制是8m 硬限制是32m 无论触发哪一个都会关闭客户端的连接 
+
+例如: 修改pub
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-11-10 10:27" pubdate>
+              2020-11-10
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/redis/">redis</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
         <a href="/2020/10/23/%E9%80%9A%E8%BF%87%E9%98%BF%E9%87%8C%E4%BA%91%E7%9A%84ssl-vpn%E8%B5%B0%E5%86%85%E7%BD%91%E4%B8%8B%E8%BD%BDoss%E8%B5%84%E6%BA%90/">通过阿里云的ssl-vpn走内网下载oss资源</a>
       </h1>
 
@@ -640,60 +687,6 @@ src/core/ngx_times.c 中定义的
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/docker/">docker</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2020/08/11/ubuntu18-04-%E4%BF%AE%E6%94%B9mysql%E7%9A%84%E5%AD%98%E5%82%A8%E7%9B%AE%E5%BD%95%E8%B8%A9%E5%9D%91/">ubuntu18.04 修改mysql的存储目录踩坑</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/08/11/ubuntu18-04-%E4%BF%AE%E6%94%B9mysql%E7%9A%84%E5%AD%98%E5%82%A8%E7%9B%AE%E5%BD%95%E8%B8%A9%E5%9D%91/">
-          
-          
-            
-          
-          环境 系统： ubuntu18.04
-mysql：5.7.31
-正常情况下，修改存储目录只需要拷贝数据和授权即可，但是发现就是不行(各种权限问题等)，后来发现是apparmor导致的，这个是ubuntu系统默认开启的。
-2020-08-10T08:10:07.460723Z 0 [Warning] Can&#x27;t create test file /data/mysql_data/145.l
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-08-11 12:58" pubdate>
-              2020-08-11
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/mysql/">mysql</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/mysql/">mysql</a>
-            
-              <a href="/tags/ubuntu/">ubuntu</a>
-            
-              <a href="/tags/apparmor/">apparmor</a>
             
           </div>
         
