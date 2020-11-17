@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>k8s常用命令</title>
+    <link href="/2020/11/17/k8s%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+    <url>/2020/11/17/k8s%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    
+    <content type="html"><![CDATA[<pre><code class="hljs gherkin">删除被驱逐的pod <span class="hljs-comment">#一般由于资源不足导致</span>kubectl get pods |<span class="hljs-string"> grep Evicted </span>|<span class="hljs-string"> awk &#x27;&#123;print $1&#125;&#x27; </span>|<span class="hljs-string"> xargs kubectl delete pod</span></code></pre>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>k8s</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>redis丢失订阅消息问题修复</title>
     <link href="/2020/11/10/redis%E4%B8%A2%E5%A4%B1%E8%AE%A2%E9%98%85%E6%B6%88%E6%81%AF%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D/"/>
     <url>/2020/11/10/redis%E4%B8%A2%E5%A4%B1%E8%AE%A2%E9%98%85%E6%B6%88%E6%81%AF%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D/</url>

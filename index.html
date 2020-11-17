@@ -188,6 +188,49 @@
     
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
+        <a href="/2020/11/17/k8s%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">k8s常用命令</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/11/17/k8s%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
+          
+          
+            
+          
+          删除被驱逐的pod #一般由于资源不足导致
+kubectl get pods | grep Evicted | awk &#x27;&#123;print $1&#125;&#x27; | xargs kubectl delete pod
+
+
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-11-17 10:49" pubdate>
+              2020-11-17
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/k8s/">k8s</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
         <a href="/2020/11/10/redis%E4%B8%A2%E5%A4%B1%E8%AE%A2%E9%98%85%E6%B6%88%E6%81%AF%E9%97%AE%E9%A2%98%E4%BF%AE%E5%A4%8D/">redis丢失订阅消息问题修复</a>
       </h1>
 
@@ -641,52 +684,6 @@ src/core/ngx_times.c 中定义的
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/request-time/">request_time</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2020/08/12/docker%E7%BD%91%E7%BB%9C%E9%97%AE%E9%A2%98/">docker请求时ip转换问题</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/08/12/docker%E7%BD%91%E7%BB%9C%E9%97%AE%E9%A2%98/">
-          
-          
-            
-          
-          环境:192.168.1.101 #是业务机器，跑的docker
-192.168.1.102 #跑的es，没有用docker
-
-现象：在192.168.1.102上的执行ss -nat|grep 192.168.1.101 然后里面有随机端口， 然后他去101上去过滤随机端口为啥找不到呢？
-
-原因：因为是桥接模式，docker的namespace是隔离的，所以临时端口在101
-上直接看不到的，得进
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-08-12 15:39" pubdate>
-              2020-08-12
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/docker/">docker</a>
             
           </div>
         
