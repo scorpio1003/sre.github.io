@@ -188,6 +188,57 @@
     
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
+        <a href="/2020/08/12/nginx%E4%B9%8Bupstream-response-time-%E5%A4%A7%E4%BA%8E%EF%BC%9F-request-time/">nginx之upstream_response_time 大于 $request_time？</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2020/08/12/nginx%E4%B9%8Bupstream-response-time-%E5%A4%A7%E4%BA%8E%EF%BC%9F-request-time/">
+          
+          
+            
+          
+          现象从nginx日志里面发现request_time小于upstream_responser_time
+
+
+从openresty查看一个大神的说法：总的来说就是两个使用的是不同的变量缓存用systemtap尝试追踪nginx时间缓存的更新,发现有可能时nginx对时间做了缓存,导致读写不一致.计算upstream_response_time是用到
+src/core/ngx_times.c 中定义的
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-08-12 15:45" pubdate>
+              2020-08-12
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/nginx/">nginx</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/request-time/">request_time</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
         <a href="/2020/08/12/docker%E7%BD%91%E7%BB%9C%E9%97%AE%E9%A2%98/">docker请求时ip转换问题</a>
       </h1>
 
@@ -648,63 +699,11 @@ pdiff(#3): 拿最新push上来的点，与历史最新的3个点相减，得到3
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        <a href="/2020/08/05/tcpdump/">tcpdump抓包</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2020/08/05/tcpdump/">
-          
-          
-            
-          
-          只获取GET请求：port 80 and (tcp[32:4] - 0x47455420 = 0)
-
-只获取POST请求：port 80 and (tcp[32:4] - 0x504F5354 = 0)
-
-获取第一个http响应数据包：port 80 and (tcp[32:6] - 0x485454502f31 = 0)
-port 80 and ((tcp[32:4] - 0x47455420 
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2020-08-05 14:57" pubdate>
-              2020-08-05
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Linux/">Linux</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/tcpdump/">tcpdump</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
   
