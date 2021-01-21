@@ -183,7 +183,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      307 字
+      458 字
     </span>
   
 
@@ -193,7 +193,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      6
        分钟
     </span>
   
@@ -231,15 +231,13 @@
 a.  <span class="hljs-keyword">location</span> <span class="hljs-title">~* /regular</span>
 b.  <span class="hljs-keyword">location</span> <span class="hljs-title">^~ /regular</span>
 c.  <span class="hljs-keyword">location</span> <span class="hljs-title">^~ /regularte</span></code></pre>
-
-<pre><code class="hljs crmsh"><span class="hljs-number">2</span>. 某个站点nginx配置里有以下四个location(选项顺序即nginx配置中出现的顺序)， 其中哪个最优先匹配到/regulartest
+<h5 id="正确答案：c"><a href="#正确答案：c" class="headerlink" title="正确答案：c"></a>正确答案：c</h5><h5 id="前缀匹配优先，如果前缀匹配有-不再匹配正则"><a href="#前缀匹配优先，如果前缀匹配有-不再匹配正则" class="headerlink" title="前缀匹配优先，如果前缀匹配有^~,不再匹配正则"></a>前缀匹配优先，如果前缀匹配有^~,不再匹配正则</h5><pre><code class="hljs crmsh"><span class="hljs-number">2</span>. 某个站点nginx配置里有以下四个location(选项顺序即nginx配置中出现的顺序)， 其中哪个最优先匹配到/regulartest
 
 a.  <span class="hljs-keyword">location</span> <span class="hljs-title">/regulartest</span>
 b.  <span class="hljs-keyword">location</span> <span class="hljs-title">~* /regular</span>
 c.  <span class="hljs-keyword">location</span> <span class="hljs-title">^~ /regular</span>
 d.  <span class="hljs-keyword">location</span> <span class="hljs-title">^~ /regularte</span></code></pre>
-
-<pre><code class="hljs kotlin"><span class="hljs-number">3</span>. nginx配置如下，在本机发送请求curl <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>:<span class="hljs-number">8080</span>/testbreak,返回结果是什么?
+<h5 id="正确答案：b-并不是d"><a href="#正确答案：b-并不是d" class="headerlink" title="正确答案：b, 并不是d"></a>正确答案：b, 并不是d</h5><h5 id="前缀匹配优先，会记住匹配的，然后继续匹配正则"><a href="#前缀匹配优先，会记住匹配的，然后继续匹配正则" class="headerlink" title="前缀匹配优先，会记住匹配的，然后继续匹配正则"></a>前缀匹配优先，会记住匹配的，然后继续匹配正则</h5><h5 id="如果把a配置去掉，就要选d了"><a href="#如果把a配置去掉，就要选d了" class="headerlink" title="如果把a配置去掉，就要选d了"></a>如果把a配置去掉，就要选d了</h5><pre><code class="hljs kotlin"><span class="hljs-number">3</span>. nginx配置如下，在本机发送请求curl <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>:<span class="hljs-number">8080</span>/testbreak,返回结果是什么?
 
  server &#123;
     listen <span class="hljs-number">8080</span>;
@@ -262,14 +260,12 @@ B. <span class="hljs-keyword">this</span> <span class="hljs-keyword">is</span> /
 C. <span class="hljs-keyword">this</span> <span class="hljs-keyword">is</span> /
 D. 以上全不对
 </code></pre>
-
-<pre><code class="hljs crmsh"><span class="hljs-number">4</span>. 某个站点nginx配置里有以下三个location,其中哪个最优先匹配到/testaa, (答案顺序即是规则顺序) 
+<h5 id="正确答案：b"><a href="#正确答案：b" class="headerlink" title="正确答案：b"></a>正确答案：b</h5><h5 id="前缀匹配优先，然后匹配长度多的"><a href="#前缀匹配优先，然后匹配长度多的" class="headerlink" title="前缀匹配优先，然后匹配长度多的"></a>前缀匹配优先，然后匹配长度多的</h5><pre><code class="hljs crmsh"><span class="hljs-number">4</span>. 某个站点nginx配置里有以下三个location,其中哪个最优先匹配到/testaa, (答案顺序即是规则顺序) 
 A <span class="hljs-keyword">location</span> <span class="hljs-title">/test</span> 
 B <span class="hljs-keyword">location</span> <span class="hljs-title">~ /test</span> 
 C <span class="hljs-keyword">location</span> <span class="hljs-title">~ /testa</span>
 </code></pre>
-
-<pre><code class="hljs angelscript"><span class="hljs-number">5.</span> nginx配置如下，在本机访问curl -| http:<span class="hljs-comment">//localhost/test,返回状态码是多少? </span>
+<h5 id="正确答案：b-1"><a href="#正确答案：b-1" class="headerlink" title="正确答案：b"></a>正确答案：b</h5><h5 id="前缀匹配优先，会记住匹配的，然后继续匹配正则-1"><a href="#前缀匹配优先，会记住匹配的，然后继续匹配正则-1" class="headerlink" title="前缀匹配优先，会记住匹配的，然后继续匹配正则"></a>前缀匹配优先，会记住匹配的，然后继续匹配正则</h5><h5 id="如果把a配置去掉，依然选择b，正则有先后顺序，匹配到之后不再向后匹配"><a href="#如果把a配置去掉，依然选择b，正则有先后顺序，匹配到之后不再向后匹配" class="headerlink" title="如果把a配置去掉，依然选择b，正则有先后顺序，匹配到之后不再向后匹配"></a>如果把a配置去掉，依然选择b，正则有先后顺序，匹配到之后不再向后匹配</h5><pre><code class="hljs angelscript"><span class="hljs-number">5.</span> nginx配置如下，在本机访问curl -| http:<span class="hljs-comment">//localhost/test,返回状态码是多少? </span>
 
 server &#123;
     listen <span class="hljs-number">80</span>;
@@ -297,6 +293,8 @@ D. <span class="hljs-number">404</span>
 E. <span class="hljs-number">502</span>
 F. <span class="hljs-number">500</span>
 G. <span class="hljs-number">504</span></code></pre>
+
+<h5 id="正确答案：b-2"><a href="#正确答案：b-2" class="headerlink" title="正确答案：b"></a>正确答案：b</h5><h5 id="proxy-pass-301永久重定向"><a href="#proxy-pass-301永久重定向" class="headerlink" title="proxy_pass 301永久重定向"></a>proxy_pass 301永久重定向</h5>
             </div>
             <hr>
             <div>
