@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>sonarqube代码质量安全漏洞工具</title>
+    <link href="/2020/12/04/sonarpostgre%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2/"/>
+    <url>/2020/12/04/sonarpostgre%E5%AE%89%E8%A3%85%E9%83%A8%E7%BD%B2/</url>
+    
+    <content type="html"><![CDATA[<h6 id="安装postgre数据库（sonarqube7-9以后不支持mysql）"><a href="#安装postgre数据库（sonarqube7-9以后不支持mysql）" class="headerlink" title="安装postgre数据库（sonarqube7.9以后不支持mysql）"></a>安装postgre数据库（sonarqube7.9以后不支持mysql）</h6><pre><code class="hljs arcade">由于用到了es<span class="hljs-string">&quot;vm.max_map_count = 262144&quot;</span> &gt;&gt;  <span class="hljs-regexp">/etc/</span>sysctl.conf </code></pre><pre><code class="hljs crystal">docker run --name sonar-postgre -e POSTGRES_USER=sonar -e POSTGRES_PASSWORD=sonar -p <span class="hljs-number">5432</span>:<span class="hljs-number">5432</span> -v /data/postgresql/<span class="hljs-symbol">data:</span>/var/<span class="hljs-class"><span class="hljs-keyword">lib</span>/<span class="hljs-title">postgresql</span>/<span class="hljs-title">data</span> -<span class="hljs-title">d</span> <span class="hljs-title">postgres</span></span></code></pre><pre><code class="hljs awk">docker run --name sonar --link sonar-postgre -e SONARQUBE_JDBC_USERNAME=sonar -e SONARQUBE_JDBC_PASSWORD=sonar -e SONARQUBE_JDBC_URL=jdbc:postgresql:<span class="hljs-regexp">//</span>sonar-postgre:<span class="hljs-number">5432</span><span class="hljs-regexp">/sonar -p 9000:9000 -v /</span>data<span class="hljs-regexp">/sonarqube/</span>data:<span class="hljs-regexp">/opt/</span>sonarqube<span class="hljs-regexp">/data -v /</span>data<span class="hljs-regexp">/sonarqube/</span>extensions:<span class="hljs-regexp">/opt/</span>sonarqube<span class="hljs-regexp">/extensions -v /</span>data<span class="hljs-regexp">/sonarqube/</span>logs:<span class="hljs-regexp">/opt/</span>sonarqube/logs -d sonarqube:lts</code></pre><h6 id="效果图如下"><a href="#效果图如下" class="headerlink" title="效果图如下"></a>效果图如下</h6><p><img src="/images/pasted-10.png" alt="upload successful"></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>k8s常用命令</title>
     <link href="/2020/11/17/k8s%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
     <url>/2020/11/17/k8s%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
